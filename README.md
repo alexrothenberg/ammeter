@@ -30,6 +30,9 @@ A gem that makes it easy to write specs for your Rails 3 Generators.
         it { should exist }
         it { should contain /require 'spec_helper'/ }
         it { should /describe Posts/ }
+        it 'should have created a migration' do
+          file('db/migrate/create_posts.rb).should be_a_migration
+        end
       end
     end
 
