@@ -1,4 +1,13 @@
-*.gem
+tmp
+doc
+pkg
+vendor
 .bundle
+*.gem
+Gemfile
 Gemfile.lock
-pkg/*
+gemfiles/*.lock
+.rvmrc
+.DS_Store
+*~
+*.swp

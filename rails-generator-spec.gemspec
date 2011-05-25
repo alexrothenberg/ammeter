@@ -27,5 +27,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake',     '= 0.8.7'
   s.add_development_dependency 'cucumber', '~> 0.10.2'
   s.add_development_dependency 'aruba',    '~> 0.3.5'
+  s.add_development_dependency 'sqlite3',  '~> 1.3'
   
 end
