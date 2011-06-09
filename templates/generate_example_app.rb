@@ -1,2 +1,2 @@
 gem 'rspec-rails' 
-gem 'rails-generator-spec', :path=>'../..'
+gem 'should-spec-generators', :path=>'../..'

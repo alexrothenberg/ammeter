@@ -1,6 +1,6 @@
 require 'rails/all'
 require 'rspec/rails'
-require 'rails-generator-spec'
+require 'should-spec-generators'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
