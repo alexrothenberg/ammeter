@@ -17,25 +17,42 @@ A gem that makes it easy to write specs for your Rails 3 Generators.
       end
 
       # using mocks to ensure proper methods are called
-      it 'should run both the model and fixture tasks' do
+      # invoke_all - will call all the tasks in the generator
+      it 'should run all tasks in the generator' do
         gen = generator %w(posts)
         gen.should_receive :create_model_spec
         gen.should_receive :create_fixture_file
         capture(:stdout) { gen.invoke_all }
       end
 
+      # invoke_task - will call just the named task in the generator
+      it 'should run a specific tasks in the generator' do
+        gen = generator %w(posts)
+        gen.should_receive     :create_model_spec
+        gen.should_not_receive :create_fixture_file
+        capture(:stdout) { gen.invoke_task :create_model_spec }
+      end
+
+      # custom matchers make it easy to verify what the generator creates
       describe 'the generated files' do
         before do
           run_generator %w(posts)
         end
         describe 'the spec' do
+          # file - gives you the absolute path where the generator will create the file
           subject { file('spec/models/posts_spec.rb') }
+
+          # should exist - verifies the file exists
           it { should exist }
+
+          # should contain - verifies the file's contents
           it { should contain /require 'spec_helper'/ }
-          it { should /describe Posts/ }
+          it { should contain /describe Posts/ }
         end
         describe 'the migration' do
           subject { file('db/migrate/create_posts.rb') }
+
+          # should be_a_migration - verifies the file exists with a migration timestamp as part of the filename 
           it { should be_a_migration }
         end
       end
