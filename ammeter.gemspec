@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "should-spec-generators/version"
+require "ammeter/version"
 
 Gem::Specification.new do |s|
-  s.name        = "should-spec-generators"
-  s.version     = Rails::Generator::Spec::VERSION
+  s.name        = "ammeter"
+  s.version     = Ammeter::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Alex Rothenberg"]
   s.email       = ["alex@alexrothenberg.com"]
