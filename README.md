@@ -1,10 +1,12 @@
-# Rails-Generator-Spec
+# Ammeter
 
 A gem that makes it easy to write specs for your Rails 3 Generators.
 
 # Example
 
     require 'spec_helper'
+
+    # Generators are not automatically loaded by Rails
     require 'generators/rspec/model/model_generator'
 
     describe Rspec::Generators::ModelGenerator do
