@@ -17,6 +17,7 @@ end
 
 Cucumber::Rake::Task.new(:cucumber)
 
+# for cucumber features that create a sample project
 def in_example_app(command)
   Dir.chdir("./tmp/example_app/") do
     Bundler.with_clean_env do
@@ -28,14 +29,20 @@ namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app do |t|
     # unless File.directory?('./tmp/example_app')
-      sh "bundle exec rails new ./tmp/example_app -m 'templates/generate_example_app.rb'"
-      sh "cp 'templates/rspec.rake' ./tmp/example_app/lib/tasks"
+      sh "bundle exec rails new ./tmp/example_app -m 'features/templates/generate_example_app.rb'"
+      sh "cp 'features/templates/rspec.rake' ./tmp/example_app/lib/tasks"
       in_example_app 'rake db:migrate'
       in_example_app 'rails g rspec:install'
       in_example_app 'bundle install'
     # end
   end
-
 end
 
-task :default => [:spec, :'generate:app', :cucumber]
+namespace :clobber do
+  desc "clobber the generated app"
+  task :app do
+    rm_rf "tmp/example_app"
+  end
+end
+
+task :default => [:spec, :'clobber:app', :'generate:app', :cucumber]
