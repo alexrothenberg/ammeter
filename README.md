@@ -24,16 +24,19 @@ A gem that makes it easy to write specs for your Rails 3 Generators.
         capture(:stdout) { gen.invoke_all }
       end
 
-      describe 'checking for output' do
-        subject { file('spec/models/posts_spec.rb') }
+      describe 'the generated files' do
         before do
           run_generator %w(posts)
         end
-        it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should /describe Posts/ }
-        it 'should have created a migration' do
-          file('db/migrate/create_posts.rb).should be_a_migration
+        describe 'the spec' do
+          subject { file('spec/models/posts_spec.rb') }
+          it { should exist }
+          it { should contain /require 'spec_helper'/ }
+          it { should /describe Posts/ }
+        end
+        describe 'the migration' do
+          subject { file('db/migrate/create_posts.rb') }
+          it { should be_a_migration }
         end
       end
     end
