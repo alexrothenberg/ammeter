@@ -2,6 +2,9 @@
 
 A gem that makes it easy to write specs for your Rails 3 Generators.
 
+An [ammeter](http://en.wikipedia.org/wiki/Ammeter) is used to measure electrical current and 
+electricity can be produced by a generator.
+
 # Example
 
     require 'spec_helper'
