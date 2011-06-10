@@ -18,7 +18,7 @@ module RSpec::Rails
       delegate :destination, :arguments, :to => :'self.test_unit_test_case_delegate.class'
 
       def initialize_delegate
-        self.test_unit_test_case_delegate = Rails::Generators::TestCase.new 'default_test'
+        self.test_unit_test_case_delegate = Rails::Generators::TestCase.new 'pending'
         self.test_unit_test_case_delegate.class.tests(describes)
       end
 
