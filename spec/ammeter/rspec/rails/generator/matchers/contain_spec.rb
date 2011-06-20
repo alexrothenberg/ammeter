@@ -15,7 +15,7 @@ describe "contain" do
     it { should contain /this text/ }
     it { should_not contain /something not there/ }
   end
-  
+
   context "when the file is not there" do
     it 'raises an error when the file does not exist' do
       expect do

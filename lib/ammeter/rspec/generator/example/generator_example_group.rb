@@ -1,11 +1,13 @@
 require 'rails/generators'
 require 'rspec/rails'
 
-module RSpec::Rails
+module Ammeter
+  module RSpec
+    module Rails
   # Delegates to Rails::Generators::TestCase to work with RSpec.
   module GeneratorExampleGroup
     extend ActiveSupport::Concern
-    include RSpec::Rails::RailsExampleGroup
+    include ::RSpec::Rails::RailsExampleGroup
 
     DELEGATED_METHODS = [:generator, :destination_root_is_set?, :capture, :ensure_current_path,
                          :prepare_destination, :destination_root, :current_path, :generator_class]
@@ -18,7 +20,7 @@ module RSpec::Rails
       delegate :destination, :arguments, :to => :'self.test_unit_test_case_delegate.class'
 
       def initialize_delegate
-        self.test_unit_test_case_delegate = Rails::Generators::TestCase.new 'pending'
+        self.test_unit_test_case_delegate = ::Rails::Generators::TestCase.new 'pending'
         self.test_unit_test_case_delegate.class.tests(describes)
       end
 
@@ -58,4 +60,6 @@ module RSpec::Rails
       File.expand_path(relative, destination_root)
     end
   end
+end
+end
 end

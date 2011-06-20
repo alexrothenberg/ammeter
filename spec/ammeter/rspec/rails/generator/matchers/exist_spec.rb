@@ -9,5 +9,5 @@ describe "exist" do
     File.stub(:exists?).with('/some/file/path').and_return(false)
     '/some/file/path'.should_not exist
   end
-  
+
 end
