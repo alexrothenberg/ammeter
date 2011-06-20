@@ -1,6 +1,6 @@
 require 'rails/all'
 require 'rspec/rails'
-require 'ammeter'
+require 'ammeter/init'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
