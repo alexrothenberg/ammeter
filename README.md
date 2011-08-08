@@ -1,11 +1,17 @@
-# Ammeter
+# Ammeter [![Build Status](http://travis-ci.org/alexrothenberg/ammeter.png)](http://travis-ci.org/alexrothenberg/ammeter)
+
 
 A gem that makes it easy to write specs for your Rails 3 Generators.
 
+RSpec is using ammeter to 
+[spec](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/model/model_generator_spec.rb) 
+[its](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/controller/controller_generator_spec.rb) 
+[own](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/helper/helper_generator_spec.rb) 
+[generators](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/scaffold/scaffold_generator_spec.rb)
+and we think you may find it useful too.
+
 An [ammeter](http://en.wikipedia.org/wiki/Ammeter) is used to measure electrical current and 
 electricity can be produced by a generator.
-
-[![Build Status](http://travis-ci.org/alexrothenberg/ammeter.png)](http://travis-ci.org/alexrothenberg/ammeter)
 
 # Example
 
