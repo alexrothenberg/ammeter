@@ -45,4 +45,5 @@ namespace :clobber do
   end
 end
 
-task :default => [:spec, :'clobber:app', :'generate:app', :cucumber]
+task :ci => [:spec, :'clobber:app', :'generate:app', :cucumber]
+task :default => :ci
