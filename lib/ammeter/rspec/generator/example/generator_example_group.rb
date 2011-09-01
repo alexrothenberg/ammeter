@@ -9,8 +9,8 @@ module Ammeter
         extend ActiveSupport::Concern
         include ::RSpec::Rails::RailsExampleGroup
 
-        DELEGATED_METHODS = [:generator, :destination_root_is_set?, :capture, :ensure_current_path,
-                             :prepare_destination, :destination_root, :current_path, :generator_class]
+        DELEGATED_METHODS = [:generator, :capture, :prepare_destination,
+                             :destination_root, :current_path, :generator_class]
         module ClassMethods
           mattr_accessor :test_unit_test_case_delegate
           delegate :default_arguments, :to => :'self.test_unit_test_case_delegate'
@@ -40,6 +40,12 @@ module Ammeter
           delegate :run_generator, :destination, :arguments, :to => :'self.class'
           DELEGATED_METHODS.each do |method|
             delegate method,  :to => :'self.class'
+          end
+          def destination_root_is_set? #:nodoc:
+            raise "You need to configure your Rails::Generators::TestCase destination root." unless destination_root
+          end
+          def ensure_current_path #:nodoc:
+            # cd current_path
           end
           initialize_delegate
 
