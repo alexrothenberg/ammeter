@@ -1,5 +1,7 @@
 require 'rails/generators'
-require 'rspec/rails'
+require 'active_support/core_ext'
+require 'rspec/rails/adapters'
+require 'rspec/rails/example/rails_example_group'
 
 module Ammeter
   module RSpec
