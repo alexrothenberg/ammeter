@@ -3,7 +3,7 @@ RSpec::Matchers.define :contain do |expected_content|
     @actual_contents = File.new(file_path).read
     case expected_content
       when String
-        @actual_contents == expected_content
+        @actual_contents.include? expected_content
       when Regexp
         @actual_contents =~ expected_content
     end

@@ -11,6 +11,8 @@ describe "contain" do
       File.stub(:new).with('/some/file/path').and_return(mock_file)
     end
     it { should contain "This file\ncontains\nthis text" }
+    it { should contain "This file" }
+    it { should contain "this text" }
     it { should contain /This file/ }
     it { should contain /this text/ }
     it { should_not contain /something not there/ }
