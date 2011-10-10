@@ -67,6 +67,10 @@ module Ammeter
         def file relative
           File.expand_path(relative, destination_root)
         end
+        def migration_file relative
+          file_path = file(relative)
+          Dir.glob("#{File.dirname(file_path)}/[0-9]*_#{File.basename(file_path)}").first
+        end
       end
     end
   end

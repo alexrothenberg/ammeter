@@ -50,27 +50,49 @@ Feature: generator spec
     When I run `rake spec`
     Then the output should contain "2 examples, 0 failures"
 
-    Scenario: A spec that runs one task in the generator
-      Given a file named "spec/generators/another_awesome_generator_spec.rb" with:
-        """
-        require "spec_helper"
-        require 'generators/awesome/awesome_generator'
+  Scenario: A spec that runs one task in the generator
+    Given a file named "spec/generators/another_awesome_generator_spec.rb" with:
+      """
+      require "spec_helper"
+      require 'generators/awesome/awesome_generator'
 
-        describe AwesomeGenerator do
-          destination File.expand_path("../../tmp", __FILE__)
-          arguments %w(another_dir)
+      describe AwesomeGenerator do
+        destination File.expand_path("../../tmp", __FILE__)
+        arguments %w(another_dir)
 
-          before do
-            invoke_task :create_awesomeness
-          end
-          it 'should copy the awesome file into public' do
-            file('public/another_dir/awesome.html').should exist
-            file('public/another_dir/awesome.html').should contain 'This is an awesome file'
-          end
-          it 'should not have copied the lame file into public' do
-            file('public/another_dir/lame.html').should_not exist
-          end
+        before do
+          invoke_task :create_awesomeness
         end
-        """
-      When I run `rake spec`
-      Then the output should contain "2 examples, 0 failures"
+        it 'should copy the awesome file into public' do
+          file('public/another_dir/awesome.html').should exist
+          file('public/another_dir/awesome.html').should contain 'This is an awesome file'
+        end
+        it 'should not have copied the lame file into public' do
+          file('public/another_dir/lame.html').should_not exist
+        end
+      end
+      """
+    When I run `rake spec`
+    Then the output should contain "2 examples, 0 failures"
+
+  Scenario: A generator that creates a migration
+    Given a file named "spec/generators/a_migration_spec.rb" with:
+      """
+      require "spec_helper"
+      require 'rails/generators/active_record/migration/migration_generator'
+
+      describe ActiveRecord::Generators::MigrationGenerator do
+        destination File.expand_path("../../tmp", __FILE__)
+
+        before do
+          prepare_destination
+          run_generator %w(create_posts)
+        end
+        subject { migration_file('db/migrate/create_posts.rb') }
+        it { should exist }
+        it { should contain 'class CreatePosts < ActiveRecord::Migration' }
+      end
+      """
+    When I run `rake spec`
+    Then the output should contain "2 examples, 0 failures"
+

@@ -41,6 +41,27 @@ module Ammeter::RSpec::Rails
           end
         end
       end
+
+      describe 'working with files' do
+        let(:path_to_gem_root_tmp) { File.expand_path(__FILE__ + '../../../../../../../../tmp') }
+        before do
+          group.destination path_to_gem_root_tmp
+          FileUtils.rm_rf path_to_gem_root_tmp
+          FileUtils.mkdir path_to_gem_root_tmp
+        end
+        it 'should use destination to find relative root file' do
+          group.file('app/model/post.rb').should == "#{path_to_gem_root_tmp}/app/model/post.rb"
+        end
+
+        it 'should use destination to find relative root file' do
+          tmp_db_migrate = path_to_gem_root_tmp + '/db/migrate'
+          FileUtils.mkdir_p tmp_db_migrate
+          FileUtils.touch(tmp_db_migrate + '/20111010200000_create_comments.rb')
+          FileUtils.touch(tmp_db_migrate + '/20111010203337_create_posts.rb')
+
+          group.migration_file('db/migrate/create_posts.rb').should == "#{path_to_gem_root_tmp}/db/migrate/20111010203337_create_posts.rb"
+        end
+      end
     end
   end
 end
