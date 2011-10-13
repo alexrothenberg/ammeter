@@ -69,7 +69,9 @@ module Ammeter
         end
         def migration_file relative
           file_path = file(relative)
-          Dir.glob("#{File.dirname(file_path)}/[0-9]*_#{File.basename(file_path)}").first
+          migration_file = Dir.glob("#{File.dirname(file_path)}/[0-9]*_#{File.basename(file_path)}").first
+          migration_file = "#{File.dirname(file_path)}/TIMESTAMP_#{File.basename(file_path)}" if migration_file.nil?
+          migration_file
         end
       end
     end

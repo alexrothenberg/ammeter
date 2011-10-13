@@ -53,13 +53,19 @@ module Ammeter::RSpec::Rails
           group.file('app/model/post.rb').should == "#{path_to_gem_root_tmp}/app/model/post.rb"
         end
 
-        it 'should use destination to find relative root file' do
-          tmp_db_migrate = path_to_gem_root_tmp + '/db/migrate'
-          FileUtils.mkdir_p tmp_db_migrate
-          FileUtils.touch(tmp_db_migrate + '/20111010200000_create_comments.rb')
-          FileUtils.touch(tmp_db_migrate + '/20111010203337_create_posts.rb')
-
-          group.migration_file('db/migrate/create_posts.rb').should == "#{path_to_gem_root_tmp}/db/migrate/20111010203337_create_posts.rb"
+        describe 'migrations' do
+          before do
+            tmp_db_migrate = path_to_gem_root_tmp + '/db/migrate'
+            FileUtils.mkdir_p tmp_db_migrate
+            FileUtils.touch(tmp_db_migrate + '/20111010200000_create_comments.rb')
+            FileUtils.touch(tmp_db_migrate + '/20111010203337_create_posts.rb')
+          end
+          it 'should use destination to find relative root file' do
+            group.migration_file('db/migrate/create_posts.rb').should == "#{path_to_gem_root_tmp}/db/migrate/20111010203337_create_posts.rb"
+          end
+          it 'should stick "TIMESTAMP" in when migration does not exist' do
+            group.migration_file('db/migrate/migration_that_is_not_there.rb').should == "#{path_to_gem_root_tmp}/db/migrate/TIMESTAMP_migration_that_is_not_there.rb"
+          end
         end
       end
     end

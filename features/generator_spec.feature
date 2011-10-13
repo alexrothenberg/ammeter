@@ -94,11 +94,20 @@ Feature: generator spec
           subject { file('public/my_dir/awesome.html') }
           it { should_not contain 'This is an awesome file' }
           it { should     contain 'This text is not in the file' }
+          it { should_not exist }
+        end
+        describe 'public/my_dir/non_existent.html' do
+          subject { file('public/my_dir/non_existent.html') }
+          it { should exist }
+        end
+        describe 'db/migrate/non_existent_migration.rb' do
+          subject { migration_file('db/migrate/non_existent_migration.rb') }
+          it { should exist }
         end
       end
       """
     When I run `rake spec`
-    Then the output should contain "2 examples, 2 failures"
+    Then the output should contain "5 examples, 5 failures"
      And the output should contain:
        """
        /tmp/public/my_dir/awesome.html to not contain "This is an awesome file" but it did
@@ -106,6 +115,18 @@ Feature: generator spec
      And the output should contain:
        """
        /tmp/public/my_dir/awesome.html to contain "This text is not in the file" but it contained "This is an awesome file"
+       """
+     And the output should contain:
+       """
+       /tmp/public/my_dir/awesome.html" not to exist
+       """
+     And the output should contain:
+       """
+       /tmp/public/my_dir/non_existent.html" to exist
+       """
+     And the output should contain:
+       """
+       db/migrate/TIMESTAMP_non_existent_migration.rb" to exist
        """
 
   Scenario: A generator that creates a migration
