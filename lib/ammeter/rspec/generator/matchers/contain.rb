@@ -14,6 +14,6 @@ RSpec::Matchers.define :contain do |expected_content|
   end
   
   failure_message_for_should_not do |file_path|
-    "expected the file #{file_path} to not contain #{expected_content} but it did"
+    "expected the file #{file_path} to not contain #{expected_content.inspect} but it did"
   end
 end

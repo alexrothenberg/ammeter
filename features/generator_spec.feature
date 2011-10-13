@@ -36,19 +36,23 @@ Feature: generator spec
       describe AwesomeGenerator do
         destination File.expand_path("../../tmp", __FILE__)
 
-        before do
-          run_generator %w(my_dir)
+        before { run_generator %w(my_dir) }
+        describe 'public/my_dir/awesome.html' do
+          subject { file('public/my_dir/awesome.html') }
+          it { should exist }
+          it { should contain 'This is an awesome file' }
+          it { should_not contain 'This text is not in the file' }
         end
-        it 'should copy the awesome file into public' do
-          file('public/my_dir/awesome.html').should exist
-        end
-        it 'should copy the lame file into public' do
-          file('public/my_dir/lame.html').should exist
+        describe 'public/my_dir/lame.html' do
+          subject { file('public/my_dir/lame.html') }
+          it { should exist }
+          it { should contain 'This is a lame file' }
+          it { should_not contain 'This text is not in the file' }
         end
       end
       """
     When I run `rake spec`
-    Then the output should contain "2 examples, 0 failures"
+    Then the output should contain "6 examples, 0 failures"
 
   Scenario: A spec that runs one task in the generator
     Given a file named "spec/generators/another_awesome_generator_spec.rb" with:
@@ -60,20 +64,49 @@ Feature: generator spec
         destination File.expand_path("../../tmp", __FILE__)
         arguments %w(another_dir)
 
-        before do
-          invoke_task :create_awesomeness
+        before { invoke_task :create_awesomeness }
+        describe 'public/another_dir/awesome.html' do
+          subject { file('public/another_dir/awesome.html') }
+          it { should exist }
+          it { should contain 'This is an awesome file' }
+          it { should_not contain 'This text is not in the file' }
         end
-        it 'should copy the awesome file into public' do
-          file('public/another_dir/awesome.html').should exist
-          file('public/another_dir/awesome.html').should contain 'This is an awesome file'
-        end
-        it 'should not have copied the lame file into public' do
-          file('public/another_dir/lame.html').should_not exist
+        describe 'public/another_dir/lame.html' do
+          subject { file('public/another_dir/lame.html') }
+          it { should_not exist }
         end
       end
       """
     When I run `rake spec`
-    Then the output should contain "2 examples, 0 failures"
+    Then the output should contain "4 examples, 0 failures"
+
+  Scenario: A spec with some failures
+    Given a file named "spec/generators/awesome_generator_spec.rb" with:
+      """
+      require "spec_helper"
+      require 'generators/awesome/awesome_generator'
+
+      describe AwesomeGenerator do
+        destination File.expand_path("../../tmp", __FILE__)
+
+        before { run_generator %w(my_dir) }
+        describe 'public/my_dir/awesome.html' do
+          subject { file('public/my_dir/awesome.html') }
+          it { should_not contain 'This is an awesome file' }
+          it { should     contain 'This text is not in the file' }
+        end
+      end
+      """
+    When I run `rake spec`
+    Then the output should contain "2 examples, 2 failures"
+     And the output should contain:
+       """
+       /tmp/public/my_dir/awesome.html to not contain "This is an awesome file" but it did
+       """
+     And the output should contain:
+       """
+       /tmp/public/my_dir/awesome.html to contain "This text is not in the file" but it contained "This is an awesome file"
+       """
 
   Scenario: A generator that creates a migration
     Given a file named "spec/generators/a_migration_spec.rb" with:
