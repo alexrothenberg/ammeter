@@ -8,13 +8,14 @@ Feature: generator spec
       """
       class AwesomeGenerator < Rails::Generators::NamedBase
         source_root File.expand_path('../templates', __FILE__)
+        class_option :super, :type => :boolean, :default => false
 
         def create_awesomeness
-          template 'awesome.html', File.join('public', name, 'awesome.html')
+          template 'awesome.html', File.join('public', name, "#{"super_" if options[:super]}awesome.html")
         end
 
         def create_lameness
-          template 'lame.html', File.join('public', name, 'lame.html')
+          template 'lame.html', File.join('public', name, "#{"super_" if options[:super]}lame.html")
         end
       end
       """
@@ -80,7 +81,7 @@ Feature: generator spec
     When I run `rake spec`
     Then the output should contain "4 examples, 0 failures"
 
-  Scenario: A spec with some failures
+  Scenario: A spec with some failures shows good error messages
     Given a file named "spec/generators/awesome_generator_spec.rb" with:
       """
       require "spec_helper"
@@ -129,6 +130,30 @@ Feature: generator spec
        db/migrate/TIMESTAMP_non_existent_migration.rb" to exist
        """
 
+   Scenario: Can specify arguments separately from running the generator
+     Given a file named "spec/generators/awesome_generator_spec.rb" with:
+       """
+       require "spec_helper"
+       require 'generators/awesome/awesome_generator'
+
+       describe AwesomeGenerator do
+         destination File.expand_path("../../tmp", __FILE__)
+         arguments %w(my_dir --super)
+
+         before { generator.invoke_all }
+         describe 'public/my_dir/super_awesome.html' do
+           subject { file('public/my_dir/super_awesome.html') }
+           it { should exist }
+         end
+         describe 'public/my_dir/super_lame.html' do
+           subject { file('public/my_dir/super_lame.html') }
+           it { should exist }
+         end
+       end
+       """
+     When I run `rake spec`
+     Then the output should contain "2 examples, 0 failures"
+
   Scenario: A generator that creates a migration
     Given a file named "spec/generators/a_migration_spec.rb" with:
       """
@@ -149,4 +174,5 @@ Feature: generator spec
       """
     When I run `rake spec`
     Then the output should contain "2 examples, 0 failures"
+
 

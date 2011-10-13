@@ -11,7 +11,7 @@ module Ammeter
         extend ActiveSupport::Concern
         include ::RSpec::Rails::RailsExampleGroup
 
-        DELEGATED_METHODS = [:generator, :capture, :prepare_destination,
+        DELEGATED_METHODS = [:capture, :prepare_destination,
                              :destination_root, :current_path, :generator_class]
         module ClassMethods
           mattr_accessor :test_unit_test_case_delegate
@@ -24,11 +24,18 @@ module Ammeter
           def initialize_delegate
             self.test_unit_test_case_delegate = ::Rails::Generators::TestCase.new 'pending'
             self.test_unit_test_case_delegate.class.tests(describes)
+            @generator = nil
+          end
+
+          def generator(given_args=self.default_arguments, config={})
+            @generator ||= begin
+              args, opts = Thor::Options.split(given_args)
+              self.test_unit_test_case_delegate.generator(args, opts, config)
+            end
           end
 
           def run_generator(given_args=self.default_arguments, config={})
-            args, opts = Thor::Options.split(given_args)
-            capture(:stdout) { generator(args, opts, config).invoke_all }
+            capture(:stdout) { generator(given_args, config).invoke_all }
           end
         end
 
@@ -39,7 +46,7 @@ module Ammeter
         end
 
         included do
-          delegate :run_generator, :destination, :arguments, :to => :'self.class'
+          delegate :generator, :run_generator, :destination, :arguments, :to => :'self.class'
           DELEGATED_METHODS.each do |method|
             delegate method,  :to => :'self.class'
           end
