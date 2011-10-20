@@ -30,15 +30,9 @@ module Ammeter::RSpec::Rails
       end
 
       describe 'able to delegate to ::Rails::Generators::TestCase' do
-        it 'should know the destination is not set' do
-          lambda { group.destination_root_is_set? }.should raise_error "You need to configure your Rails::Generators::TestCase destination root."
-        end
         describe 'with a destination root' do
           before { group.destination '/some/path' }
           its(:destination_root)         { should == '/some/path' }
-          it 'should know the destination is set' do
-            lambda { group.destination_root_is_set? }.should_not raise_error
-          end
         end
       end
 

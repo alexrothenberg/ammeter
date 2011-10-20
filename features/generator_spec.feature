@@ -35,8 +35,6 @@ Feature: generator spec
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
-        destination File.expand_path("../../tmp", __FILE__)
-
         before { run_generator %w(my_dir) }
         describe 'public/my_dir/awesome.html' do
           subject { file('public/my_dir/awesome.html') }
@@ -62,7 +60,6 @@ Feature: generator spec
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
-        destination File.expand_path("../../tmp", __FILE__)
         arguments %w(another_dir)
 
         before { invoke_task :create_awesomeness }
@@ -81,15 +78,13 @@ Feature: generator spec
     When I run `rake spec`
     Then the output should contain "4 examples, 0 failures"
 
-  Scenario: A spec with some failures shows good error messages
+  Scenario: A spec with some failures shows nice error messages
     Given a file named "spec/generators/awesome_generator_spec.rb" with:
       """
       require "spec_helper"
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
-        destination File.expand_path("../../tmp", __FILE__)
-
         before { run_generator %w(my_dir) }
         describe 'public/my_dir/awesome.html' do
           subject { file('public/my_dir/awesome.html') }
@@ -111,19 +106,19 @@ Feature: generator spec
     Then the output should contain "5 examples, 5 failures"
      And the output should contain:
        """
-       /tmp/public/my_dir/awesome.html to not contain "This is an awesome file" but it did
+       /public/my_dir/awesome.html to not contain "This is an awesome file" but it did
        """
      And the output should contain:
        """
-       /tmp/public/my_dir/awesome.html to contain "This text is not in the file" but it contained "This is an awesome file"
+       /public/my_dir/awesome.html to contain "This text is not in the file" but it contained "This is an awesome file"
        """
      And the output should contain:
        """
-       /tmp/public/my_dir/awesome.html" not to exist
+       /public/my_dir/awesome.html" not to exist
        """
      And the output should contain:
        """
-       /tmp/public/my_dir/non_existent.html" to exist
+       /public/my_dir/non_existent.html" to exist
        """
      And the output should contain:
        """
@@ -137,7 +132,6 @@ Feature: generator spec
        require 'generators/awesome/awesome_generator'
 
        describe AwesomeGenerator do
-         destination File.expand_path("../../tmp", __FILE__)
          arguments %w(my_dir --super)
 
          before { generator.invoke_all }
@@ -161,12 +155,7 @@ Feature: generator spec
       require 'rails/generators/active_record/migration/migration_generator'
 
       describe ActiveRecord::Generators::MigrationGenerator do
-        destination File.expand_path("../../tmp", __FILE__)
-
-        before do
-          prepare_destination
-          run_generator %w(create_posts)
-        end
+        before { run_generator %w(create_posts) }
         subject { migration_file('db/migrate/create_posts.rb') }
         it { should exist }
         it { should contain 'class CreatePosts < ActiveRecord::Migration' }
@@ -174,5 +163,26 @@ Feature: generator spec
       """
     When I run `rake spec`
     Then the output should contain "2 examples, 0 failures"
+
+  Scenario: Can tell the generator where to put its files
+    Given a file named "spec/generators/awesome_generator_spec.rb" with:
+      """
+      require "spec_helper"
+      require 'generators/awesome/awesome_generator'
+
+      describe AwesomeGenerator do
+        destination Rails.root + 'tmp/generated_files'
+
+        before { run_generator %w(my_dir --super) }
+        describe 'public/my_dir/super_awesome.html' do
+          subject { file('public/my_dir/super_awesome.html') }
+          it { should == "#{Rails.root}/tmp/generated_files/public/my_dir/super_awesome.html" }
+          it { should exist }
+        end
+      end
+      """
+    When I run `rake spec`
+    Then the output should contain "2 examples, 0 failures"
+
 
 

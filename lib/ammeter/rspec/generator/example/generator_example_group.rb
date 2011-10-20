@@ -2,6 +2,8 @@ require 'rails/generators'
 require 'active_support/core_ext'
 require 'rspec/rails/adapters'
 require 'rspec/rails/example/rails_example_group'
+require 'tmpdir'
+require 'fileutils'
 
 module Ammeter
   module RSpec
@@ -19,7 +21,7 @@ module Ammeter
           DELEGATED_METHODS.each do |method|
             delegate method,  :to => :'self.test_unit_test_case_delegate'
           end
-          delegate :destination, :arguments, :to => :'self.test_unit_test_case_delegate.class'
+          delegate :destination, :arguments, :to => ::Rails::Generators::TestCase
 
           def initialize_delegate
             self.test_unit_test_case_delegate = ::Rails::Generators::TestCase.new 'pending'
@@ -50,23 +52,17 @@ module Ammeter
           DELEGATED_METHODS.each do |method|
             delegate method,  :to => :'self.class'
           end
-          def destination_root_is_set? #:nodoc:
-            raise "You need to configure your Rails::Generators::TestCase destination root." unless destination_root
-          end
-          def ensure_current_path #:nodoc:
-            # cd current_path
-          end
+          ::Rails::Generators::TestCase.destination File.expand_path('ammeter', Dir.tmpdir)
           initialize_delegate
 
           subject { generator }
 
           before do
             self.class.initialize_delegate
-            destination_root_is_set?
-            ensure_current_path
+            prepare_destination
           end
           after do
-            ensure_current_path
+            # ensure_current_path
           end
           metadata[:type] = :generator
         end
