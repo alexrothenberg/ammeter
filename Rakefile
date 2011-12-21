@@ -30,7 +30,7 @@ namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app do |t|
     # unless File.directory?('./tmp/example_app')
-      sh "bundle exec rails new ./tmp/example_app -m 'features/templates/generate_example_app.rb'"
+      sh "bundle exec rails new ./tmp/example_app -m 'features/templates/generate_example_app.rb' --skip-test-unit"
       sh "cp 'features/templates/rspec.rake' ./tmp/example_app/lib/tasks"
       in_example_app 'rake db:migrate'
       in_example_app 'rails g rspec:install'
