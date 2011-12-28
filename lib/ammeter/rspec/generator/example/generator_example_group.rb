@@ -41,12 +41,10 @@ module Ammeter
           end
         end
 
-        module InstanceMethods
-          def invoke_task name
-            capture(:stdout) { generator.invoke_task(generator_class.all_tasks[name.to_s]) }
-          end
+        def invoke_task name
+          capture(:stdout) { generator.invoke_task(generator_class.all_tasks[name.to_s]) }
         end
-
+      
         included do
           delegate :generator, :run_generator, :destination, :arguments, :to => :'self.class'
           DELEGATED_METHODS.each do |method|
