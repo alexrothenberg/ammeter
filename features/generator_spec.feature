@@ -158,11 +158,12 @@ Feature: generator spec
         before { run_generator %w(create_posts) }
         subject { migration_file('db/migrate/create_posts.rb') }
         it { should exist }
+        it { should be_a_migration }
         it { should contain 'class CreatePosts < ActiveRecord::Migration' }
       end
       """
     When I run `rake spec`
-    Then the output should contain "2 examples, 0 failures"
+    Then the output should contain "3 examples, 0 failures"
 
   Scenario: Can tell the generator where to put its files
     Given a file named "spec/generators/awesome_generator_spec.rb" with:
