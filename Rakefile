@@ -21,21 +21,19 @@ Cucumber::Rake::Task.new(:cucumber)
 # for cucumber features that create a sample project
 def in_example_app(command)
   Dir.chdir("./tmp/example_app/") do
-    Bundler.with_clean_env do
-      sh command
-    end
+    Bundler.clean_system command
   end
 end
 namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app do |t|
-    # unless File.directory?('./tmp/example_app')
-      sh "bundle exec rails new ./tmp/example_app -m 'features/templates/generate_example_app.rb' --skip-test-unit"
-      sh "cp 'features/templates/rspec.rake' ./tmp/example_app/lib/tasks"
-      in_example_app 'rake db:migrate'
-      in_example_app 'rails g rspec:install'
-      in_example_app 'bundle install'
-    # end
+    raise 'Bundler 1.1 is a development dependency to build ammeter. Please upgrade bundler.' unless Bundler::VERSION >= '1.1'
+
+    sh "bundle exec rails new ./tmp/example_app -m 'features/templates/generate_example_app.rb' --skip-test-unit"
+    sh "cp 'features/templates/rspec.rake' ./tmp/example_app/lib/tasks"
+    in_example_app 'rake db:migrate'
+    in_example_app 'rails g rspec:install'
+    in_example_app 'bundle install'
   end
 end
 
