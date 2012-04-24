@@ -13,8 +13,7 @@ module Ammeter
         extend ActiveSupport::Concern
         include ::RSpec::Rails::RailsExampleGroup
 
-        DELEGATED_METHODS = [:capture, :prepare_destination,
-                             :destination_root, :current_path, :generator_class]
+        DELEGATED_METHODS = [:capture, :destination_root, :current_path, :generator_class]
         module ClassMethods
           mattr_accessor :test_unit_test_case_delegate
           delegate :default_arguments, :to => :'self.test_unit_test_case_delegate'
@@ -23,6 +22,10 @@ module Ammeter
           end
           delegate :destination, :arguments, :to => ::Rails::Generators::TestCase
 
+          def prepare_destination
+            self.test_unit_test_case_delegate.send :prepare_destination
+          end
+          
           def initialize_delegate
             self.test_unit_test_case_delegate = ::Rails::Generators::TestCase.new 'pending'
             self.test_unit_test_case_delegate.class.tests(describes)
@@ -50,6 +53,11 @@ module Ammeter
           DELEGATED_METHODS.each do |method|
             delegate method,  :to => :'self.class'
           end
+          
+          def prepare_destination
+            self.class.send :prepare_destination
+          end
+          
           ::Rails::Generators::TestCase.destination File.expand_path('ammeter', Dir.tmpdir)
           initialize_delegate
 
