@@ -1,5 +1,11 @@
 ## Ammeter release history
 
+### 0.2.5 / 2012-05-03
+
+[full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.4...v0.2.5)
+
+* Fixed issue #9 with for rails 4
+
 ### 0.2.4 / 2012-04-06
 
 [full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.3...v0.2.4)
