@@ -1,3 +1,4 @@
+@example_app
 Feature: generator spec
 
   Generator specs live in spec/generators. In order to access
