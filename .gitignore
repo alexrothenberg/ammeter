@@ -4,7 +4,6 @@ pkg
 vendor
 .bundle
 *.gem
-Gemfile
 Gemfile.lock
 gemfiles/*.lock
 .rvmrc

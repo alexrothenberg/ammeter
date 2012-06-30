@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+
+# Specify your gem's dependencies in my_gem.gemspec
+gemspec
+
+# we cannot add a development dependency with a path to my_gem.gemspec
+gem 'ammeter', :path => '../..'
