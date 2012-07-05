@@ -7,6 +7,6 @@ vendor
 Gemfile.lock
 gemfiles/*.lock
 .rvmrc
-.DS_Store
+**/.DS_Store
 *~
 *.swp
