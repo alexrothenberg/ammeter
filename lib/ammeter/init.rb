@@ -1,5 +1,6 @@
 require 'ammeter/rspec/generator/example.rb'
 require 'ammeter/rspec/generator/matchers.rb'
+require 'rails'
 
 if Rails.application.nil?
   # We are in a gem so create test Rails app
