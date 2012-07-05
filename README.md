@@ -1,4 +1,5 @@
 # Ammeter [![Build Status](https://secure.travis-ci.org/alexrothenberg/ammeter.png)](http://travis-ci.org/alexrothenberg/ammeter)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/alexrothenberg/ammeter)
 
 A gem that makes it easy to write specs for your Rails 3 Generators.
 
