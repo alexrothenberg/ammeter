@@ -1,5 +1,12 @@
 ## Ammeter release history
 
+### 0.2.7 / 2012-07-05
+
+[full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.6...v0.2.7)
+
+* Fixed issue #13 - Railtie initializer preventing devise from loading
+* Fixed issue #12 - Only load_generators if we Rails is available. Regression introduced in 0.2.6
+
 ### 0.2.6 / 2012-06-28
 
 [full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.5...v0.2.6)
