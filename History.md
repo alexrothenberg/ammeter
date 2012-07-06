@@ -1,5 +1,11 @@
 ## Ammeter release history
 
+### 0.2.8 / 2012-07-06
+
+[full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.7...v0.2.8)
+
+Fixes regression with initialization for gems that create a test Rails.application (problem since 0.2.6)
+
 ### 0.2.7 / 2012-07-05
 
 [full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.6...v0.2.7)
