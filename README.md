@@ -14,60 +14,60 @@ electricity can be produced by a generator.
 
 # Example
 
-    require 'spec_helper'
+```ruby
+require 'spec_helper'
 
-    # Generators are not automatically loaded by Rails
-    require 'generators/rspec/model/model_generator'
+# Generators are not automatically loaded by Rails
+require 'generators/rspec/model/model_generator'
 
-    describe Rspec::Generators::ModelGenerator do
-      # Tell the generator where to put its output (what it thinks of as Rails.root)
-      destination File.expand_path("../../../../../tmp", __FILE__)
-      before do
-        prepare_destination
-      end
+describe Rspec::Generators::ModelGenerator do
+  # Tell the generator where to put its output (what it thinks of as Rails.root)
+  destination File.expand_path("../../../../../tmp", __FILE__)
+  before do
+    prepare_destination
+  end
 
-      # using mocks to ensure proper methods are called
-      # invoke_all - will call all the tasks in the generator
-      it 'should run all tasks in the generator' do
-        gen = generator %w(posts)
-        gen.should_receive :create_model_spec
-        gen.should_receive :create_fixture_file
-        capture(:stdout) { gen.invoke_all }
-      end
+  # using mocks to ensure proper methods are called
+  # invoke_all - will call all the tasks in the generator
+  it 'should run all tasks in the generator' do
+    gen = generator %w(posts)
+    gen.should_receive :create_model_spec
+    gen.should_receive :create_fixture_file
+    capture(:stdout) { gen.invoke_all }
+  end
 
-      # invoke_task - will call just the named task in the generator
-      it 'should run a specific tasks in the generator' do
-        gen = generator %w(posts)
-        gen.should_receive     :create_model_spec
-        gen.should_not_receive :create_fixture_file
-        capture(:stdout) { gen.invoke_task :create_model_spec }
-      end
+  # invoke_task - will call just the named task in the generator
+  it 'should run a specific tasks in the generator' do
+    gen = generator %w(posts)
+    gen.should_receive     :create_model_spec
+    gen.should_not_receive :create_fixture_file
+    capture(:stdout) { gen.invoke_task :create_model_spec }
+  end
 
-      # custom matchers make it easy to verify what the generator creates
-      describe 'the generated files' do
-        before do
-          run_generator %w(posts)
-        end
-        describe 'the spec' do
-          # file - gives you the absolute path where the generator will create the file
-          subject { file('spec/models/posts_spec.rb') }
-
-          # should exist - verifies the file exists
-          it { should exist }
-
-          # should contain - verifies the file's contents
-          it { should contain /require 'spec_helper'/ }
-          it { should contain /describe Posts/ }
-        end
-        describe 'the migration' do
-          subject { file('db/migrate/create_posts.rb') }
-
-          # should be_a_migration - verifies the file exists with a migration timestamp as part of the filename 
-          it { should be_a_migration }
-        end
-      end
+  # custom matchers make it easy to verify what the generator creates
+  describe 'the generated files' do
+    before do
+      run_generator %w(posts)
     end
+    describe 'the spec' do
+      # file - gives you the absolute path where the generator will create the file
+      subject { file('spec/models/posts_spec.rb') }
+       # should exist - verifies the file exists
+      it { should exist }
 
+      # should contain - verifies the file's contents
+      it { should contain /require 'spec_helper'/ }
+      it { should contain /describe Posts/ }
+    end
+    describe 'the migration' do
+      subject { file('db/migrate/create_posts.rb') }
+
+      # should be_a_migration - verifies the file exists with a migration timestamp as part of the filename 
+      it { should be_a_migration }
+    end
+  end
+end
+```
 
 # Contributing
 
