@@ -32,7 +32,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'aruba',        '>= 0.3'
   case RUBY_PLATFORM
   when 'java'
-    s.add_development_dependency 'activerecord-jdbcsqlite3-adapter',      '>= 1'
+    s.add_development_dependency 'activerecord-jdbcsqlite3-adapter'
+    s.add_development_dependency 'therubyrhino'
   else
     s.add_development_dependency 'sqlite3',      '>= 1'
   end
