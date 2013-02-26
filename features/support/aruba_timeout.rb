@@ -6,8 +6,9 @@ Aruba.configure do |config|
   end
 end if RUBY_PLATFORM == 'java'
 
-if %w(jruby rbx).include? RUBY_ENGINE
+# MRI 1.8.7 does not define RUBY_ENGINE
+if defined?(RUBY_ENGINE) && %w(jruby rbx).include? RUBY_ENGINE
   Before do
-    @aruba_timeout_seconds = 20
+    @aruba_timeout_seconds = 30
   end
 end
