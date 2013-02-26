@@ -32,7 +32,7 @@ def create_gem(gem_name)
   sh "cp '#{template_folder}/Gemfile' tmp/#{gem_name}"
   sh "cp '#{template_folder}/#{gem_name}.gemspec' tmp/#{gem_name}"
   sh "cp '#{template_folder}/Rakefile' tmp/#{gem_name}"
-  sh "mkdir tmp/#{gem_name}/spec"
+  sh "mkdir -p tmp/#{gem_name}/spec"
   sh "cp '#{template_folder}/spec/spec_helper.rb' tmp/#{gem_name}/spec"
   Dir.chdir("./tmp/#{gem_name}") do
     Bundler.clean_system 'bundle install'
