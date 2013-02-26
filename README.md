@@ -1,16 +1,16 @@
-# Ammeter [![Build Status](https://secure.travis-ci.org/alexrothenberg/ammeter.png)](http://travis-ci.org/alexrothenberg/ammeter) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/alexrothenberg/ammeter) [![Gem Version](https://badge.fury.io/rb/ammeter.png)](http://badge.fury.io/rb/ammeter)
+# Ammeter [![Build Status](https://secure.travis-ci.org/alexrothenberg/ammeter.png)](http://travis-ci.org/alexrothenberg/ammeter) [![Code Climate](https://codeclimate.com/github/alexrothenberg/ammeter.png)](https://codeclimate.com/github/alexrothenberg/ammeter) [![Gem Version](https://badge.fury.io/rb/ammeter.png)](http://badge.fury.io/rb/ammeter)
 
 
 A gem that makes it easy to write specs for your Rails 3 Generators.
 
-RSpec is using ammeter to 
-[spec](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/model/model_generator_spec.rb) 
-[its](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/controller/controller_generator_spec.rb) 
-[own](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/helper/helper_generator_spec.rb) 
+RSpec is using ammeter to
+[spec](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/model/model_generator_spec.rb)
+[its](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/controller/controller_generator_spec.rb)
+[own](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/helper/helper_generator_spec.rb)
 [generators](https://github.com/rspec/rspec-rails/blob/master/spec/generators/rspec/scaffold/scaffold_generator_spec.rb)
 and we think you may find it useful too.
 
-An [ammeter](http://en.wikipedia.org/wiki/Ammeter) is used to measure electrical current and 
+An [ammeter](http://en.wikipedia.org/wiki/Ammeter) is used to measure electrical current and
 electricity can be produced by a generator.
 
 # Example
@@ -63,7 +63,7 @@ describe Rspec::Generators::ModelGenerator do
     describe 'the migration' do
       subject { file('db/migrate/create_posts.rb') }
 
-      # should be_a_migration - verifies the file exists with a migration timestamp as part of the filename 
+      # should be_a_migration - verifies the file exists with a migration timestamp as part of the filename
       it { should be_a_migration }
     end
   end
