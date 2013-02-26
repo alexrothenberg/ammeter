@@ -3,12 +3,9 @@ rvm:
   - 1.8.7
   - 1.9.3
   - 2.0.0
+  - rbx-18mode
   - rbx-19mode
   - ruby-head
+  - jruby-18mode
+  - jruby-19mode
   - jruby-head
-matrix:
-  allow_failures:
-    - rvm:   # some cucumber "rake spec" timeouts (just slowness I think)
-      - rbx-18mode
-      - jruby-18mode
-      - jruby-19mode

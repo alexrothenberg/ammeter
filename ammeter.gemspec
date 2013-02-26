@@ -30,8 +30,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'jquery-rails', '>= 2.0.2'
   s.add_development_dependency 'cucumber',     '>= 0.10'
   s.add_development_dependency 'aruba',        '>= 0.3'
-  case RUBY_PLATFORM
-  when 'java'
+  case RUBY_ENGINE
+  when 'jruby'
     s.add_development_dependency 'activerecord-jdbcsqlite3-adapter'
     s.add_development_dependency 'therubyrhino'
   else
