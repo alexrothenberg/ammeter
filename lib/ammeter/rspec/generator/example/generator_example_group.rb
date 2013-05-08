@@ -25,6 +25,10 @@ module Ammeter
           def prepare_destination
             self.test_unit_test_case_delegate.send :prepare_destination
           end
+
+          def ensure_current_path
+            self.test_unit_test_case_delegate.send :ensure_current_path
+          end
           
           def initialize_delegate
             self.test_unit_test_case_delegate = ::Rails::Generators::TestCase.new 'pending'
@@ -49,7 +53,7 @@ module Ammeter
         end
       
         included do
-          delegate :generator, :run_generator, :destination, :arguments, :to => :'self.class'
+          delegate :generator, :run_generator, :destination, :arguments, :ensure_current_path, :to => :'self.class'
           DELEGATED_METHODS.each do |method|
             delegate method,  :to => :'self.class'
           end
