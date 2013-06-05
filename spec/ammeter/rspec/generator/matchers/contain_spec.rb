@@ -4,18 +4,19 @@ describe "contain" do
 
   context "when the file exists" do
     let(:contents) { "This file\ncontains\nthis text" }
-    let(:mock_file) { mock(:read=>contents) }
 
     subject { '/some/file/path' }
     before do
-      File.stub(:new).with('/some/file/path').and_return(mock_file)
+      File.stub(:read).with('/some/file/path').and_return(contents)
     end
     it { should contain "This file\ncontains\nthis text" }
     it { should contain "This file" }
     it { should contain "this text" }
     it { should contain /This file/ }
     it { should contain /this text/ }
+    it { should contain "contains", /this text/ }
     it { should_not contain /something not there/ }
+    it { should_not contain /this isn't at the contents/, /neither is this/ }
   end
 
   context "when the file is not there" do
