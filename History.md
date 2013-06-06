@@ -1,5 +1,12 @@
 ## Ammeter release history
 
+### 0.2.9 / 2013-06-06
+
+[full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.8...v0.2.9)
+
+* Improves `contain` matcher for generated file contents
+* Adds `ensure_current_path` method to GeneratorExampleGroup
+
 ### 0.2.8 / 2012-07-06
 
 [full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.7...v0.2.8)
