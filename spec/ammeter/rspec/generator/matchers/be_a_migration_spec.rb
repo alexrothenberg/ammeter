@@ -9,7 +9,7 @@ describe "be_a_migration" do
     migration_files.each do |migration_file|
       File.stub(:exist?).with(migration_file).and_return(true)
     end
-    Dir.stub!(:glob).with('db/migrate/[0-9]*_*.rb').and_return(migration_files)
+    Dir.stub(:glob).with('db/migrate/[0-9]*_*.rb').and_return(migration_files)
   end
   it 'should find for the migration file adding the filename timestamp for us' do
     'db/migrate/create_users.rb'.should be_a_migration

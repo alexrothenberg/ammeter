@@ -17,23 +17,22 @@ module Ammeter::RSpec::Rails
 
     describe 'an instance of the group' do
       let(:group)     { group_class.new }
-      subject { group }
       let(:generator) { double('generator') }
       before { group.stub(:generator => generator) }
       describe 'uses the generator as the implicit subject' do
-        its(:subject) { should == generator }
-      end
-
-      describe "allows you to override with explicity subject" do
-        before { group_class.subject { 'explicit' } }
-        its(:subject) { should == 'explicit' }
-      end
-
-      describe 'able to delegate to ::Rails::Generators::TestCase' do
-        describe 'with a destination root' do
-          before { group.destination '/some/path' }
-          its(:destination_root)         { should == '/some/path' }
+        it 'sets a generator as subject' do
+          group.subject.should == generator
         end
+      end
+
+      it "allows you to override with explicity subject" do
+        group_class.subject { 'explicit' }
+        group.subject.should == 'explicit'
+      end
+
+      it 'allows delegation of destination root to ::Rails::Generators::TestCase' do
+        group.destination '/some/path'
+        group.destination_root.should == '/some/path'
       end
 
       describe 'working with files' do

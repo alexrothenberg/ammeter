@@ -29,10 +29,10 @@ module Ammeter
           def ensure_current_path
             self.test_unit_test_case_delegate.send :ensure_current_path
           end
-          
+
           def initialize_delegate
             self.test_unit_test_case_delegate = ::Rails::Generators::TestCase.new 'pending'
-            self.test_unit_test_case_delegate.class.tests(describes)
+            self.test_unit_test_case_delegate.class.tests(described_class)
             @generator = nil
           end
 
@@ -51,17 +51,17 @@ module Ammeter
         def invoke_task name
           capture(:stdout) { generator.invoke_task(generator_class.all_tasks[name.to_s]) }
         end
-      
+
         included do
           delegate :generator, :run_generator, :destination, :arguments, :ensure_current_path, :to => :'self.class'
           DELEGATED_METHODS.each do |method|
             delegate method,  :to => :'self.class'
           end
-          
+
           def prepare_destination
             self.class.send :prepare_destination
           end
-          
+
           ::Rails::Generators::TestCase.destination File.expand_path('ammeter', Dir.tmpdir)
           initialize_delegate
 
