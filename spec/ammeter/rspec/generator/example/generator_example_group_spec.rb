@@ -12,27 +12,27 @@ module Ammeter::RSpec::Rails
     end
 
     it "adds :type => :generator to the metadata" do
-      group_class.metadata[:type].should eq(:generator)
+      expect(group_class.metadata[:type]).to eq(:generator)
     end
 
     describe 'an instance of the group' do
       let(:group)     { group_class.new }
-      let(:generator) { double('generator') }
-      before { group.stub(:generator => generator) }
       describe 'uses the generator as the implicit subject' do
+        let(:generator) { double('generator') }
         it 'sets a generator as subject' do
-          group.subject.should == generator
+          allow(group).to receive(:generator).and_return(generator)
+          expect(group.subject).to eq generator
         end
       end
 
       it "allows you to override with explicity subject" do
         group_class.subject { 'explicit' }
-        group.subject.should == 'explicit'
+        expect(group.subject).to eq 'explicit'
       end
 
       it 'allows delegation of destination root to ::Rails::Generators::TestCase' do
         group.destination '/some/path'
-        group.destination_root.should == '/some/path'
+        expect(group.destination_root).to eq '/some/path'
       end
 
       describe 'working with files' do
@@ -43,7 +43,7 @@ module Ammeter::RSpec::Rails
           FileUtils.mkdir path_to_gem_root_tmp
         end
         it 'should use destination to find relative root file' do
-          group.file('app/model/post.rb').should == "#{path_to_gem_root_tmp}/app/model/post.rb"
+          expect(group.file('app/model/post.rb')).to eq "#{path_to_gem_root_tmp}/app/model/post.rb"
         end
 
         describe 'migrations' do
@@ -54,10 +54,10 @@ module Ammeter::RSpec::Rails
             FileUtils.touch(tmp_db_migrate + '/20111010203337_create_posts.rb')
           end
           it 'should use destination to find relative root file' do
-            group.migration_file('db/migrate/create_posts.rb').should == "#{path_to_gem_root_tmp}/db/migrate/20111010203337_create_posts.rb"
+            expect(group.migration_file('db/migrate/create_posts.rb')).to eq "#{path_to_gem_root_tmp}/db/migrate/20111010203337_create_posts.rb"
           end
           it 'should stick "TIMESTAMP" in when migration does not exist' do
-            group.migration_file('db/migrate/migration_that_is_not_there.rb').should == "#{path_to_gem_root_tmp}/db/migrate/TIMESTAMP_migration_that_is_not_there.rb"
+            expect(group.migration_file('db/migrate/migration_that_is_not_there.rb')).to eq "#{path_to_gem_root_tmp}/db/migrate/TIMESTAMP_migration_that_is_not_there.rb"
           end
         end
       end
