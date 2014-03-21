@@ -23,7 +23,7 @@ describe "contain" do
     it 'raises an error when the file does not exist' do
       expect do
         'some/file/that/does/not/exist'.should contain 'something'
-      end.to raise_error 'No such file or directory - some/file/that/does/not/exist'
+      end.to raise_error /No such file or directory/
     end
   end
 end
