@@ -1,15 +1,15 @@
 RSpec::Matchers.define :contain do |*expected_contents|
-  match_for_should do |file_path|
+  match do |file_path|
     @actual_contents = File.read(file_path)
     not_found_expectations.empty?
   end
 
-  match_for_should_not do |file_path|
+  match_when_negated do |file_path|
     @actual_contents = File.read(file_path)
     found_expectations.empty?
   end
 
-  failure_message_for_should do |file_path|
+  failure_message do |file_path|
     "expected the file #{file_path} to contain " +
       if expected_contents.many?
         "#{expected_contents.map(&:inspect).to_sentence} but " +
@@ -19,7 +19,7 @@ RSpec::Matchers.define :contain do |*expected_contents|
       end
   end
 
-  failure_message_for_should_not do |file_path|
+  failure_message_when_negated do |file_path|
     "expected the file #{file_path} to not contain " +
       if expected_contents.many?
         "#{expected_contents.map(&:inspect).to_sentence} but " +
