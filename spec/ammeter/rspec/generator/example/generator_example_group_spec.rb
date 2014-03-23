@@ -2,8 +2,8 @@ require "spec_helper"
 
 module Ammeter::RSpec::Rails
   describe GeneratorExampleGroup do
-    it { is_expected.to be_included_in_files_in('./spec/generators/') }
-    it { is_expected.to be_included_in_files_in('.\\spec\\generators\\') }
+    it { should be_included_in_files_in('./spec/generators/') }
+    it { should be_included_in_files_in('.\\spec\\generators\\') }
 
     let(:group_class) do
       ::RSpec::Core::ExampleGroup.describe do

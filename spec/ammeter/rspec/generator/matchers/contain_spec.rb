@@ -9,14 +9,14 @@ describe "contain" do
     before do
       allow(File).to receive(:read).with('/some/file/path').and_return(contents)
     end
-    it { is_expected.to contain "This file\ncontains\nthis text" }
-    it { is_expected.to contain "This file" }
-    it { is_expected.to contain "this text" }
-    it { is_expected.to contain /This file/ }
-    it { is_expected.to contain /this text/ }
-    it { is_expected.to contain "contains", /this text/ }
-    it { is_expected.to_not contain /something not there/ }
-    it { is_expected.to_not contain /this isn't at the contents/, /neither is this/ }
+    it { should contain "This file\ncontains\nthis text" }
+    it { should contain "This file" }
+    it { should contain "this text" }
+    it { should contain /This file/ }
+    it { should contain /this text/ }
+    it { should contain "contains", /this text/ }
+    it { should_not contain /something not there/ }
+    it { should_not contain /this isn't at the contents/, /neither is this/ }
   end
 
   context "when the file is not there" do

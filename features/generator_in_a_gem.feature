@@ -29,9 +29,9 @@ Feature: Gems can contain generators
         before { run_generator %w(my_dir) }
         describe 'public/my_dir/awesome.html' do
           subject { file('public/my_dir/awesome.html') }
-          it { is_expected.to exist }
-          it { is_expected.to contain 'This is an awesome file' }
-          it { is_expected.to_not contain 'This text is not in the file' }
+          it { should exist }
+          it { should contain 'This is an awesome file' }
+          it { should_not contain 'This text is not in the file' }
         end
       end
       """
@@ -67,14 +67,14 @@ Feature: Gems can contain generators
         before { run_generator %w(post) }
         describe 'app/controller/posts_controller.rb' do
           subject { file('app/controllers/posts_controller.rb') }
-          it { is_expected.to exist }
-          it { is_expected.to contain 'class PostsController < ResourcefulController' }
+          it { should exist }
+          it { should contain 'class PostsController < ResourcefulController' }
         end
 
         describe 'app/models/post.rb' do
           subject { file('app/models/post.rb') }
-          it { is_expected.to exist }
-          it { is_expected.to contain 'class Post < ActiveRecord::Base' }
+          it { should exist }
+          it { should contain 'class Post < ActiveRecord::Base' }
         end
       end
       """
