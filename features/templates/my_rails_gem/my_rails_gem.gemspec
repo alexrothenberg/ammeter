@@ -16,5 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = MyRailsGem::VERSION
 
   gem.add_runtime_dependency     'rails', '>= 3.1'
-  gem.add_development_dependency 'rspec-rails',   '>=3.0.0.beta2'
+  gem.add_development_dependency 'rspec-rails',   '>= 2.2'
 end
