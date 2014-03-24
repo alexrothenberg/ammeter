@@ -1,3 +1,4 @@
+require 'ammeter/rspec/rspec_2_compatibility'  # if rspec2
 require 'ammeter/rspec/generator/example.rb'
 require 'ammeter/rspec/generator/matchers.rb'
 require 'rails'
