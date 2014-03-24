@@ -13,4 +13,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |c|
   c.include MatchesForRSpecRailsSpecs
+  if RSpec::Core::Version::STRING < '3'
+    c.include RSpec2MemoizedHelpersCompatibility
+  end
 end
