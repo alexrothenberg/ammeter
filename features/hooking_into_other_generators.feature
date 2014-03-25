@@ -34,14 +34,14 @@ Feature: generator spec
         before { run_generator %w(post) }
         describe 'app/controller/posts_controller.rb' do
           subject { file('app/controllers/posts_controller.rb') }
-          it { is_expected.to exist }
-          it { is_expected.to contain 'class PostsController < ResourcefulController' }
+          it { expect(subject).to exist }
+          it { expect(subject).to contain 'class PostsController < ResourcefulController' }
         end
 
         describe 'app/models/post.rb' do
           subject { file('app/models/post.rb') }
-          it { is_expected.to exist }
-          it { is_expected.to contain 'class Post < ActiveRecord::Base' }
+          it { expect(subject).to exist }
+          it { expect(subject).to contain 'class Post < ActiveRecord::Base' }
         end
       end
       """

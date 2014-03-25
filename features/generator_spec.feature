@@ -39,15 +39,15 @@ Feature: generator spec
         before { run_generator %w(my_dir) }
         describe 'public/my_dir/awesome.html' do
           subject { file('public/my_dir/awesome.html') }
-          it { is_expected.to exist }
-          it { is_expected.to contain 'This is an awesome file' }
-          it { is_expected.to_not contain 'This text is not in the file' }
+          it { expect(subject).to exist }
+          it { expect(subject).to contain 'This is an awesome file' }
+          it { expect(subject).to_not contain 'This text is not in the file' }
         end
         describe 'public/my_dir/lame.html' do
           subject { file('public/my_dir/lame.html') }
-          it { is_expected.to exist }
-          it { is_expected.to contain 'This is a lame file' }
-          it { is_expected.to_not contain 'This text is not in the file' }
+          it { expect(subject).to exist }
+          it { expect(subject).to contain 'This is a lame file' }
+          it { expect(subject).to_not contain 'This text is not in the file' }
         end
       end
       """
@@ -66,9 +66,9 @@ Feature: generator spec
         before { invoke_task :create_awesomeness }
         describe 'public/another_dir/awesome.html' do
           subject { file('public/another_dir/awesome.html') }
-          it { is_expected.to exist }
-          it { is_expected.to contain 'This is an awesome file' }
-          it { is_expected.to_not contain 'This text is not in the file' }
+          it { expect(subject).to exist }
+          it { expect(subject).to contain 'This is an awesome file' }
+          it { expect(subject).to_not contain 'This text is not in the file' }
         end
         describe 'public/another_dir/lame.html' do
           subject { file('public/another_dir/lame.html') }
@@ -89,17 +89,17 @@ Feature: generator spec
         before { run_generator %w(my_dir) }
         describe 'public/my_dir/awesome.html' do
           subject { file('public/my_dir/awesome.html') }
-          it { is_expected.to_not contain 'This is an awesome file' }
-          it { is_expected.to     contain 'This text is not in the file' }
-          it { is_expected.to_not exist }
+          it { expect(subject).to_not contain 'This is an awesome file' }
+          it { expect(subject).to     contain 'This text is not in the file' }
+          it { expect(subject).to_not exist }
         end
         describe 'public/my_dir/non_existent.html' do
           subject { file('public/my_dir/non_existent.html') }
-          it { is_expected.to exist }
+          it { expect(subject).to exist }
         end
         describe 'db/migrate/non_existent_migration.rb' do
           subject { migration_file('db/migrate/non_existent_migration.rb') }
-          it { is_expected.to exist }
+          it { expect(subject).to exist }
         end
       end
       """
@@ -138,11 +138,11 @@ Feature: generator spec
          before { generator.invoke_all }
          describe 'public/my_dir/super_awesome.html' do
            subject { file('public/my_dir/super_awesome.html') }
-           it { is_expected.to exist }
+           it { expect(subject).to exist }
          end
          describe 'public/my_dir/super_lame.html' do
            subject { file('public/my_dir/super_lame.html') }
-           it { is_expected.to exist }
+           it { expect(subject).to exist }
          end
        end
        """
@@ -158,9 +158,9 @@ Feature: generator spec
       describe ActiveRecord::Generators::MigrationGenerator do
         before { run_generator %w(create_posts) }
         subject { migration_file('db/migrate/create_posts.rb') }
-        it { is_expected.to exist }
-        it { is_expected.to be_a_migration }
-        it { is_expected.to contain 'class CreatePosts < ActiveRecord::Migration' }
+        it { expect(subject).to exist }
+        it { expect(subject).to be_a_migration }
+        it { expect(subject).to contain 'class CreatePosts < ActiveRecord::Migration' }
       end
       """
     When I run `rake spec`
@@ -178,8 +178,8 @@ Feature: generator spec
         before { run_generator %w(my_dir --super) }
         describe 'public/my_dir/super_awesome.html' do
           subject { file('public/my_dir/super_awesome.html') }
-          it { is_expected.to eq "#{Rails.root}/tmp/generated_files/public/my_dir/super_awesome.html" }
-          it { is_expected.to exist }
+          it { expect(subject).to eq "#{Rails.root}/tmp/generated_files/public/my_dir/super_awesome.html" }
+          it { expect(subject).to exist }
         end
       end
       """
