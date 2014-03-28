@@ -7,6 +7,10 @@ rvm:
   - jruby-head
   - jruby-19mode
   - rbx-19mode
+env:
+  - RSPEC_VERSION=master
+  - RSPEC_VERSION=2.99
+  - RSPEC_VERSION=2.14
 matrix:
   allow_failures:
     - rvm: 1.9.3
