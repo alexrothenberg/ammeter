@@ -1,9 +1,9 @@
 source "http://rubygems.org"
 
-rspec_version = ENV['RSPEC_VERSION'] || '2.99'
+rspec_version = ENV['RSPEC_VERSION'] || '2.99.0.beta2'
 
 case rspec_version
-when 'head'
+when 'master'
   gem "rspec-rails", :git => 'git://github.com/rspec/rspec-rails.git'
   gem "rspec", :git => 'git://github.com/rspec/rspec.git'
   gem "rspec-core", :git => 'git://github.com/rspec/rspec-core.git'
