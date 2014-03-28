@@ -10,7 +10,7 @@ rvm:
 env:
   - RSPEC_VERSION=master
   - RSPEC_VERSION=2.99.0.beta2
-  - RSPEC_VERSION=2.14.2
+  - RSPEC_VERSION=2.14
 matrix:
   allow_failures:
     - rvm: 1.9.3
