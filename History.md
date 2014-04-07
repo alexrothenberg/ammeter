@@ -1,5 +1,11 @@
 ## Ammeter release history
 
+### 1.0.0 / 2014-04-07
+
+[full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.9...v1.0.0)
+
+* Compatible with RSpec 3 & RSpec 2
+
 ### 0.2.9 / 2013-06-06
 
 [full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.8...v0.2.9)
