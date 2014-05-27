@@ -7,6 +7,6 @@ RSpec::Matchers.define :be_a_migration do
     else
       migration_file_path = Dir.glob("#{dirname}/[0-9]*_*.rb").grep(/\d+_#{file_name}$/).first
     end
-    File.exist?(migration_file_path)
+    migration_file_path && File.exist?(migration_file_path)
   end
 end
