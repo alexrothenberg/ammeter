@@ -29,6 +29,7 @@ def copy_to_aruba_from(gem_or_app_name)
     end
   end
   write_symlink("tmp/#{gem_or_app_name}/spec/spec_helper.rb", gem_or_app_name)
+  write_symlink("tmp/#{gem_or_app_name}/spec/rails_helper.rb", gem_or_app_name)
 end
 
 Before '@example_app' do
