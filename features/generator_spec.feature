@@ -32,7 +32,7 @@ Feature: generator spec
   Scenario: A spec that runs the entire generator
     Given a file named "spec/generators/awesome_generator_spec.rb" with:
       """
-      require "spec_helper"
+      require "rails_helper"
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
@@ -51,13 +51,13 @@ Feature: generator spec
         end
       end
       """
-    When I run `rake spec`
+    When I run `rake spec --trace`
     Then the output should contain "6 examples, 0 failures"
 
   Scenario: A spec that runs one task in the generator
     Given a file named "spec/generators/another_awesome_generator_spec.rb" with:
       """
-      require "spec_helper"
+      require "rails_helper"
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
@@ -82,7 +82,7 @@ Feature: generator spec
   Scenario: A spec with some failures shows nice error messages
     Given a file named "spec/generators/awesome_generator_spec.rb" with:
       """
-      require "spec_helper"
+      require "rails_helper"
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
@@ -129,7 +129,7 @@ Feature: generator spec
    Scenario: Can specify arguments separately from running the generator
      Given a file named "spec/generators/awesome_generator_spec.rb" with:
        """
-       require "spec_helper"
+       require "rails_helper"
        require 'generators/awesome/awesome_generator'
 
        describe AwesomeGenerator do
@@ -152,7 +152,7 @@ Feature: generator spec
   Scenario: A generator that creates a migration
     Given a file named "spec/generators/a_migration_spec.rb" with:
       """
-      require "spec_helper"
+      require "rails_helper"
       require 'rails/generators/active_record/migration/migration_generator'
 
       describe ActiveRecord::Generators::MigrationGenerator do
@@ -169,7 +169,7 @@ Feature: generator spec
   Scenario: Can tell the generator where to put its files
     Given a file named "spec/generators/awesome_generator_spec.rb" with:
       """
-      require "spec_helper"
+      require "rails_helper"
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do

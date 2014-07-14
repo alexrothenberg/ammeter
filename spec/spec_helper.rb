@@ -1,6 +1,8 @@
 require 'rails/all'
 require 'rspec/rails'
 
+ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
+
 module TestApp
   class Application < Rails::Application
     config.root = File.dirname(__FILE__)

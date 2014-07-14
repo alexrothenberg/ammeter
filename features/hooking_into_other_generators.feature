@@ -27,7 +27,7 @@ Feature: generator spec
   Scenario: A spec that runs the entire generator
     Given a file named "spec/generators/resourceful_generator_spec.rb" with:
       """
-      require "spec_helper"
+      require "rails_helper"
       require 'generators/resourceful/resourceful_generator'
 
       describe ResourcefulGenerator do
