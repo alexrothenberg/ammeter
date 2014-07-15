@@ -10,12 +10,9 @@ if rspec_version == 'master'
   gem "rspec-mocks", :git => 'git://github.com/rspec/rspec-mocks.git'
   gem "rspec-collection_matchers", :git => 'git://github.com/rspec/rspec-collection_matchers.git'
   gem "rspec-support", :git => 'git://github.com/rspec/rspec-support.git'
-elsif rspec_version
+else
   gem 'rspec-rails', rspec_version
   gem 'rspec',       rspec_version
-else
-  gem 'rspec-rails'
-  gem 'rspec'
 end
 
 # Specify your gem's dependencies in rspec-rails-generator-specs.gemspec
