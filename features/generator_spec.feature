@@ -51,7 +51,7 @@ Feature: generator spec
         end
       end
       """
-    When I run `rake spec --trace`
+    When I run `rake spec`
     Then the output should contain "6 examples, 0 failures"
 
   Scenario: A spec that runs one task in the generator

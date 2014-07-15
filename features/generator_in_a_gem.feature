@@ -35,7 +35,7 @@ Feature: Gems can contain generators
         end
       end
       """
-    When I run `rake spec --trace`
+    When I run `rake spec`
     Then the output should contain "3 examples, 0 failures"
 
   @rails_gem
