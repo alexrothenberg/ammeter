@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 rspec_version = ENV['RSPEC_VERSION']
+rspec_major_version = (rspec_version && rspec_version != 'master') ? rspec_version.split('.')[0] : '3'
 
 if rspec_version == 'master'
   gem "rspec-rails", :git => 'git://github.com/rspec/rspec-rails.git'
@@ -14,6 +15,16 @@ else
   gem 'rspec-rails', rspec_version
   gem 'rspec',       rspec_version
 end
+
+case rspec_major_version
+when '2'
+  gem 'railties', '~> 3.2'
+when '3'
+  gem 'railties', '>= 4.1'
+else
+  raise "rspec version #{rspec_version} is not supported"
+end
+
 
 # Specify your gem's dependencies in my_gem.gemspec
 gemspec
