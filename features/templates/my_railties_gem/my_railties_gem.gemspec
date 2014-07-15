@@ -2,7 +2,7 @@
 require File.expand_path('../lib/my_railties_gem/version', __FILE__)
 
 rspec_version = ENV['RSPEC_VERSION']
-rspec_major_version = rspec_version ? rspec_version.split('.')[0] : '3'
+rspec_major_version = (rspec_version && rspec_version != 'master') ? rspec_version.split('.')[0] : '3'
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Alex Rothenberg"]
@@ -17,8 +17,6 @@ Gem::Specification.new do |gem|
   gem.name          = "my_railties_gem"
   gem.require_paths = ["lib"]
   gem.version       = MyRailtiesGem::VERSION
-
-  gem.add_development_dependency 'rspec-rails',   rspec_version
 
   case rspec_major_version
   when '2'

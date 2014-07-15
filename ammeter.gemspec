@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "ammeter/version"
 
 rspec_version = ENV['RSPEC_VERSION']
-rspec_major_version = rspec_version ? rspec_version.split('.')[0] : '3'
+rspec_major_version = (rspec_version && rspec_version != 'master') ? rspec_version.split('.')[0] : '3'
 
 Gem::Specification.new do |s|
   s.name        = "ammeter"
