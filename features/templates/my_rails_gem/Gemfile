@@ -1,5 +1,31 @@
 source 'https://rubygems.org'
 
+rspec_version = ENV['RSPEC_VERSION']
+rspec_major_version = (rspec_version && rspec_version != 'master') ? rspec_version.split('.')[0] : '3'
+
+if rspec_version == 'master'
+  gem "rspec-rails", :git => 'git://github.com/rspec/rspec-rails.git'
+  gem "rspec", :git => 'git://github.com/rspec/rspec.git'
+  gem "rspec-core", :git => 'git://github.com/rspec/rspec-core.git'
+  gem "rspec-expectations", :git => 'git://github.com/rspec/rspec-expectations.git'
+  gem "rspec-mocks", :git => 'git://github.com/rspec/rspec-mocks.git'
+  gem "rspec-collection_matchers", :git => 'git://github.com/rspec/rspec-collection_matchers.git'
+  gem "rspec-support", :git => 'git://github.com/rspec/rspec-support.git'
+else
+  gem 'rspec-rails', rspec_version
+  gem 'rspec',       rspec_version
+end
+
+case rspec_major_version
+when '2'
+  gem 'rails', '~> 3.2'
+when '3'
+  gem 'rails', '>= 4.1'
+else
+  raise "rspec version #{rspec_version} is not supported"
+end
+
+
 # Specify your gem's dependencies in my_gem.gemspec
 gemspec
 

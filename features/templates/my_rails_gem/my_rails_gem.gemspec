@@ -15,6 +15,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = MyRailsGem::VERSION
 
-  gem.add_runtime_dependency     'rails', '>= 3.1'
-  gem.add_development_dependency 'rspec-rails',   '>=2.2'
+  gem.add_runtime_dependency     'rails', '>= 3.2'
 end

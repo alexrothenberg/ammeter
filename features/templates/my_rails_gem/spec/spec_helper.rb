@@ -1,5 +1,7 @@
 require 'bundler/setup'
 require 'rails/all'
+# This prevents 'uninitialized constant Jquery::Rails::Railtie::PROTOTYPE_JS (NameError)'
+require 'jquery/rails'
 
 module MyRailsGem
   module TestApp
