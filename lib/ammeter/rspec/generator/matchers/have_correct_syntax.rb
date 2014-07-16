@@ -26,10 +26,12 @@ RSpec::Matchers.define :have_correct_syntax do
   end
 
   define_method :check_erb_syntax do |code|
-    require 'erb'
+    require 'action_view'
+    require 'ostruct'
 
     begin
-      ERB.new('<% __crash_me__ %>' + code).run
+      view = ActionView::Template::Handlers::ERB.call(OpenStruct.new(source: code))
+      eval('__crash_me__; ' + view)
     rescue SyntaxError
       false
     rescue NameError

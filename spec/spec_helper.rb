@@ -19,3 +19,7 @@ RSpec.configure do |c|
     c.include RSpec2MemoizedHelpersCompatibility
   end
 end
+
+def stub_file(filename, content)
+  allow(File).to receive(:read).with(filename).and_return(content)
+end
