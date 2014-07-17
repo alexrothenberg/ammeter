@@ -8,7 +8,7 @@ RSpec::Matchers.define :have_correct_syntax do
       when '.rhtml', '.erb'
         check_erb_syntax(source)
       when '.haml'
-        check_ruby_syntax(source)
+        check_haml_syntax(source)
       else
         raise "Checking syntax for #{extension} files is not yet supported"
     end
@@ -44,7 +44,7 @@ RSpec::Matchers.define :have_correct_syntax do
 
     begin
       Haml::Engine.new(code)
-    rescue SyntaxError
+    rescue Haml::SyntaxError
       false
     rescue NameError
       true

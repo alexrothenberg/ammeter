@@ -25,6 +25,7 @@ when '2'
   gem 'coffee-rails', '~> 3.2'
   gem 'sass-rails', '~> 3.2'
   gem 'jquery-rails', '~> 2.0'
+  gem 'haml-rails', '~> 0.4'
 when '3'
   gem 'rails', '>= 4.0'
   gem 'uglifier', '>= 1.3'
@@ -32,6 +33,7 @@ when '3'
   gem 'coffee-rails', '>= 4.0'
   gem 'sass-rails', '>= 4.0'
   gem 'jquery-rails', '>= 3.0'
+  gem 'haml-rails', '>= 0.5'
 else
   raise "rspec version #{rspec_version} is not supported"
 end
