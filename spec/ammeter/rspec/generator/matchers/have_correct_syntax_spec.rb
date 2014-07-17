@@ -60,4 +60,47 @@ describe 'have_correct_syntax' do
       expect(subject).to_not have_correct_syntax
     end
   end
+
+  describe 'haml files' do
+    subject { '/test.haml' }
+    it 'checks if simple Haml file has a proper syntax' do
+      stub_file subject, <<-EOF
+%a{:href => "#"}= @order.id
+      EOF
+      expect(subject).to have_correct_syntax
+    end
+
+    it 'checks if simple Haml file has an incorrect syntax' do
+      stub_file subject, <<-EOF
+%a{
+      EOF
+      expect(subject).to_not have_correct_syntax
+    end
+
+    it 'checks if complex Haml file has a proper syntax' do
+      stub_file subject, <<-EOF
+%header
+  %h1= application_title
+#body
+  %table
+    - @elements.each do |element|
+      %tr
+        %td= element.id
+        %td= element.title
+        %td= link_to 'Show', element_path(element)
+      EOF
+      expect(subject).to have_correct_syntax
+    end
+
+    it 'checks if complex Haml file has an incorrect syntax' do
+      stub_file subject, <<-EOF
+#broken-example
+  %p This test should fail because of broken indentation
+  - @elements.each do |element|
+    %tr
+       $td= element.id
+      EOF
+      expect(subject).to_not have_correct_syntax
+    end
+  end
 end

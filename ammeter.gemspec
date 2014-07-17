@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'coffee-rails', '>= 3.2.2'
   s.add_development_dependency 'sass-rails',   '>= 3.2.5'
   s.add_development_dependency 'jquery-rails', '>= 2.0.2'
+  s.add_development_dependency 'haml-rails',   '>= 0.4'
   s.add_development_dependency 'cucumber',     '>= 0.10'
   s.add_development_dependency 'aruba',        '>= 0.3'
   case RUBY_PLATFORM
