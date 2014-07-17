@@ -5,10 +5,3 @@ Aruba.configure do |config|
     set_env('JAVA_OPTS', "-d32 #{ENV['JAVA_OPTS']}") # force jRuby to use client JVM for faster startup times
   end
 end if RUBY_PLATFORM == 'java'
-
-# MRI 1.8.7 does not define RUBY_ENGINE
-if defined?(RUBY_ENGINE) && %w(jruby rbx).include?(RUBY_ENGINE)
-  Before do
-    @aruba_timeout_seconds = 30
-  end
-end
