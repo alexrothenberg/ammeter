@@ -53,22 +53,30 @@ describe Rspec::Generators::ModelGenerator do
     describe 'the spec' do
       # file - gives you the absolute path where the generator will create the file
       subject { file('spec/models/posts_spec.rb') }
-       # should exist - verifies the file exists
-      it { should exist }
+      # is_expected_to exist - verifies the file exists
+      it { is_expected_to exist }
 
-      # should contain - verifies the file's contents
-      it { should contain /require 'spec_helper'/ }
-      it { should contain /describe Posts/ }
+      # is_expected_to contain - verifies the file's contents
+      it { is_expected_to contain /require 'spec_helper'/ }
+      it { is_expected_to contain /describe Posts/ }
     end
     describe 'the migration' do
       subject { file('db/migrate/create_posts.rb') }
 
-      # should be_a_migration - verifies the file exists with a migration timestamp as part of the filename
-      it { should be_a_migration }
+      # is_expected_to be_a_migration - verifies the file exists with a migration timestamp as part of the filename
+      it { is_expected_to be_a_migration }
     end
   end
 end
 ```
+
+# Available matchers
+
+- `exist` - verifies the file exists
+- `contain` - verifies the file's contents
+- `be_a_migration` - verifies the file exists with a migration timestamp as part of the filename
+- `have_method` - verifies the file (or a class withing it) implements a method
+- `have_correct_syntax` - verifies the file has correct syntax and is not broken (works for .rb, .erb and .haml files)
 
 # Contributing
 
