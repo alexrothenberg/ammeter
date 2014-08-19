@@ -37,23 +37,35 @@ Feature: generator spec
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
-        before { run_generator %w(my_dir --someone Alex) }
-        describe 'public/my_dir/awesome.html' do
-          subject { file('public/my_dir/awesome.html') }
-          it { expect(subject).to exist }
-          it { expect(subject).to contain 'This is an awesome file' }
-          it { expect(subject).to_not contain 'This text is not in the file' }
+        describe 'invoke' do
+          before { run_generator %w(my_dir --someone Alex) }
+          describe 'public/my_dir/awesome.html' do
+            subject { file('public/my_dir/awesome.html') }
+            it { expect(subject).to exist }
+            it { expect(subject).to contain 'This is an awesome file' }
+            it { expect(subject).to_not contain 'This text is not in the file' }
+          end
+          describe 'public/my_dir/lame.html' do
+            subject { file('public/my_dir/lame.html') }
+            it { expect(subject).to exist }
+            it { expect(subject).to contain 'Alex is lame' }
+            it { expect(subject).to_not contain 'This text is not in the file' }
+          end
         end
-        describe 'public/my_dir/lame.html' do
-          subject { file('public/my_dir/lame.html') }
-          it { expect(subject).to exist }
-          it { expect(subject).to contain 'Alex is lame' }
-          it { expect(subject).to_not contain 'This text is not in the file' }
+        describe 'revoke' do
+          subject { file('public/my_dir/awesome.html') }
+          it 'can run a reverse migration' do
+            FileUtils.mkdir_p(File.dirname(subject))
+            File.write(subject, "test file")
+            expect(subject).to exist
+            run_generator %w(my_dir --someone Alex), behavior: :revoke
+            expect(subject).not_to exist
+          end
         end
       end
       """
     When I run `rake spec`
-    Then the output should contain "6 examples, 0 failures"
+    Then the output should contain "7 examples, 0 failures"
 
   Scenario: A spec that runs one task in the generator
     Given a file named "spec/generators/another_awesome_generator_spec.rb" with:
