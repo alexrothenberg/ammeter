@@ -10,13 +10,14 @@ Feature: generator spec
       class AwesomeGenerator < Rails::Generators::NamedBase
         source_root File.expand_path('../templates', __FILE__)
         class_option :super, :type => :boolean, :default => false
+        class_option :someone, :type => :string
 
         def create_awesomeness
           template 'awesome.html', File.join('public', name, "#{"super_" if options[:super]}awesome.html")
         end
 
         def create_lameness
-          template 'lame.html', File.join('public', name, "#{"super_" if options[:super]}lame.html")
+          template 'lame.html.erb', File.join('public', name, "#{"super_" if options[:super]}lame.html")
         end
       end
       """
@@ -24,9 +25,9 @@ Feature: generator spec
       """
       This is an awesome file
       """
-    And a file named "lib/generators/awesome/templates/lame.html" with:
+    And a file named "lib/generators/awesome/templates/lame.html.erb" with:
       """
-      This is a lame file
+      <%= options[:someone] %> is lame
       """
 
   Scenario: A spec that runs the entire generator
@@ -36,7 +37,7 @@ Feature: generator spec
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
-        before { run_generator %w(my_dir) }
+        before { run_generator %w(my_dir --someone Alex) }
         describe 'public/my_dir/awesome.html' do
           subject { file('public/my_dir/awesome.html') }
           it { expect(subject).to exist }
@@ -46,7 +47,7 @@ Feature: generator spec
         describe 'public/my_dir/lame.html' do
           subject { file('public/my_dir/lame.html') }
           it { expect(subject).to exist }
-          it { expect(subject).to contain 'This is a lame file' }
+          it { expect(subject).to contain 'Alex is lame' }
           it { expect(subject).to_not contain 'This text is not in the file' }
         end
       end
