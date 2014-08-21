@@ -13,7 +13,7 @@ module Ammeter
         extend ActiveSupport::Concern
         include ::RSpec::Rails::RailsExampleGroup
 
-        DELEGATED_METHODS = [:capture, :destination_root, :current_path, :generator_class]
+        DELEGATED_METHODS = [:destination_root, :current_path, :generator_class]
         module ClassMethods
           mattr_accessor :test_unit_test_case_delegate
           delegate :default_arguments, :to => :'self.test_unit_test_case_delegate'
@@ -44,12 +44,12 @@ module Ammeter
           end
 
           def run_generator(given_args=self.default_arguments, config={})
-            capture(:stdout) { generator(given_args, config).invoke_all }
+            OutputCapturer.capture(:stdout) { generator(given_args, config).invoke_all }
           end
         end
 
         def invoke_task name
-          capture(:stdout) { generator.invoke_task(generator_class.all_tasks[name.to_s]) }
+          OutputCapturer.capture(:stdout) { generator.invoke_task(generator_class.all_tasks[name.to_s]) }
         end
 
         included do
