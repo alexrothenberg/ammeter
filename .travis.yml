@@ -10,12 +10,11 @@ rvm:
   - rbx-19mode
 env:
   - RSPEC_VERSION=master
-  - RSPEC_VERSION=2.99.0.beta2
-  - RSPEC_VERSION=2.14
+  - RSPEC_VERSION='~> 3.0.0'
+  - RSPEC_VERSION='~> 2.99.0'
+  - RSPEC_VERSION='~> 2.14.0'
 matrix:
   allow_failures:
-    - rvm: 1.8.7
-    - rvm: 1.9.3
     - rvm: ruby-head
     - rvm: jruby-head
     - rvm: jruby-19mode

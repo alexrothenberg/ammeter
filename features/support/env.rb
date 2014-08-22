@@ -25,7 +25,7 @@ def copy_to_aruba_from(gem_or_app_name)
   }
 
   rspec_version = ENV['RSPEC_VERSION']
-  rspec_major_version = (rspec_version && rspec_version != 'master') ? rspec_version.split('.')[0] : '3'
+  rspec_major_version = (rspec_version && rspec_version != 'master') ? rspec_version.scan(/\d+/).first : '3'
 
   Dir["tmp/#{gem_or_app_name}/*"].each do |file_or_dir|
     if !(file_or_dir =~ /\/spec$/)
