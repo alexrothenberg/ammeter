@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 rspec_version = ENV['RSPEC_VERSION']
-rspec_major_version = (rspec_version && rspec_version != 'master') ? rspec_version.split('.')[0] : '3'
+rspec_major_version = (rspec_version && rspec_version != 'master') ? rspec_version.scan(/\d+/).first : '3'
 
 if rspec_version == 'master'
   gem "rspec-rails", :git => 'git://github.com/rspec/rspec-rails.git'
@@ -16,10 +16,11 @@ else
   gem 'rspec',       rspec_version
 end
 
-case rspec_major_version
-when '2'
-  gem 'railties', '~> 3.2'
-when '3'
+if rspec_major_version == '2' || RUBY_VERSION.to_f < 1.9
+  gem 'railties', '~> 3.2.0'
+  # Execjs is causing problems on 1.8.7
+  #gem 'execjs', '~> 2.0.0'
+elsif rspec_major_version == '3'
   gem 'railties', '>= 4.1'
 else
   raise "rspec version #{rspec_version} is not supported"

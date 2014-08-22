@@ -56,9 +56,12 @@ Feature: generator spec
           subject { file('public/my_dir/awesome.html') }
           it 'can run a reverse migration' do
             FileUtils.mkdir_p(File.dirname(subject))
-            File.write(subject, "test file")
+            # File.write is not in 1.8.7 use File.open
+            File.open(subject, 'w') do |f|
+              f.write "test file"
+            end
             expect(subject).to exist
-            run_generator %w(my_dir --someone Alex), behavior: :revoke
+            run_generator %w(my_dir --someone Alex), :behavior => :revoke
             expect(subject).not_to exist
           end
         end
