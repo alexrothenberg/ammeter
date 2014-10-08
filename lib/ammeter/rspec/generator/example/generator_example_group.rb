@@ -4,6 +4,7 @@ require 'rspec/rails/adapters'
 require 'rspec/rails/example/rails_example_group'
 require 'tmpdir'
 require 'fileutils'
+require 'ammeter/output_capturer'
 
 module Ammeter
   module RSpec
