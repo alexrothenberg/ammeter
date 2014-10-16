@@ -61,10 +61,11 @@ describe Rspec::Generators::ModelGenerator do
       it { is_expected_to contain /describe Posts/ }
     end
     describe 'the migration' do
-      subject { file('db/migrate/create_posts.rb') }
+      subject { migration_file('db/migrate/create_posts.rb') }
 
       # is_expected_to be_a_migration - verifies the file exists with a migration timestamp as part of the filename
-      it { is_expected_to be_a_migration }
+      it { is_expected_to exist }
+      it { is_expected_to contain /create_table/ }
     end
   end
 end
