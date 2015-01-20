@@ -38,6 +38,8 @@ else
   raise "rspec version #{rspec_version} is not supported"
 end
 
+gem "i18n", '< 0.7.0' if RUBY_VERSION < '1.9.3'
+
 # Specify your gem's dependencies in rspec-rails-generator-specs.gemspec
 gemspec
 
