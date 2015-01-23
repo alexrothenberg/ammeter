@@ -1,7 +1,11 @@
 require 'aruba/cucumber'
 
 Before do
-  @aruba_timeout_seconds = 30
+  if RUBY_VERSION == "1.9.3"
+    @aruba_timeout_seconds = 60
+  else
+    @aruba_timeout_seconds = 30
+  end
 end
 
 def aruba_path(file_or_dir, source_foldername)
