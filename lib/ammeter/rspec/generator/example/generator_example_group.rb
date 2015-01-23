@@ -65,8 +65,6 @@ module Ammeter
           ::Rails::Generators::TestCase.destination File.expand_path('ammeter', Dir.tmpdir)
           initialize_delegate
 
-          subject { generator }
-
           before do
             self.class.initialize_delegate
             prepare_destination
@@ -85,6 +83,9 @@ module Ammeter
           migration_file = Dir.glob("#{File.dirname(file_path)}/[0-9]*_#{File.basename(file_path)}").first
           migration_file = "#{File.dirname(file_path)}/TIMESTAMP_#{File.basename(file_path)}" if migration_file.nil?
           migration_file
+        end
+        def subject
+          generator
         end
       end
     end
