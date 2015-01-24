@@ -22,6 +22,7 @@ script: "bundle exec rake ci --trace"
 
 matrix:
   allow_failures:
+    - rvm: 2.2
     - rvm: ruby-head
     - rvm: jruby-9.0.0.0.pre1
     - rvm: jruby-1.7.9-d19
