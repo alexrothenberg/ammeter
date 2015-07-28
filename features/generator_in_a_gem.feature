@@ -79,4 +79,4 @@ Feature: Gems can contain generators
       end
       """
     When I run `rake spec`
-    Then the output should contain "37 examples, 0 failures"
+    Then the output should contain "4 examples, 0 failures"

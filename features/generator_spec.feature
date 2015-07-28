@@ -93,7 +93,7 @@ Feature: generator spec
       end
       """
     When I run `rake spec`
-    Then the output should contain "37 examples, 0 failures"
+    Then the output should contain "4 examples, 0 failures"
 
   Scenario: A spec with some failures shows nice error messages
     Given a file named "spec/generators/awesome_generator_spec.rb" with:
