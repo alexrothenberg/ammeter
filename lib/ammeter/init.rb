@@ -1,4 +1,5 @@
 require 'rspec/core'
+require 'rspec/rails'
 if RSpec::Core::Version::STRING < '3'
   require 'ammeter/rspec/rspec_2_compatibility'  # if rspec2
 end

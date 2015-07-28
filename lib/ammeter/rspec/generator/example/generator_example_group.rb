@@ -1,7 +1,5 @@
 require 'rails/generators'
 require 'active_support/core_ext'
-require 'rspec/rails/adapters'
-require 'rspec/rails/example/rails_example_group'
 require 'tmpdir'
 require 'fileutils'
 
