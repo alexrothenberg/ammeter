@@ -11,3 +11,5 @@ gemfiles/*.lock
 *~
 *.swp
 .rbx
+.ruby-version
+.ruby-gemset
