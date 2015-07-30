@@ -48,6 +48,7 @@ namespace :generate do
       Bundler.clean_system 'bundle install'
       Bundler.clean_system 'rake db:migrate'
       Bundler.clean_system 'rails g rspec:install'
+      Bundler.clean_system 'spring stop'
     end
   end
 
