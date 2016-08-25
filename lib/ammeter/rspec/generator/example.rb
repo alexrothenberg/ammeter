@@ -17,7 +17,7 @@ RSpec::configure do |c|
       }
 
   else #rspec2
-
+    c.include Ammeter::RSpec::Rails::GeneratorExampleHelpers
     c.include Ammeter::RSpec::Rails::GeneratorExampleGroup, :type => :generator, :example_group => {
       :file_path => generator_path_regex
     }
