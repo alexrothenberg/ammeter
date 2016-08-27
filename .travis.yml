@@ -2,20 +2,16 @@ language: ruby
 sudo: false
 
 rvm:
+  - 2.3.0
   - 2.2
   - 2.1.2
   - 2.0.0
-  - 1.9.3
-  - 1.8.7
   - ruby-head
-  - jruby-9.0.0.0.pre1
-  - jruby-1.7.9-d19
+  - jruby-9.1.2.0
 
 env:
   - RSPEC_VERSION=master
-  - RSPEC_VERSION='~> 3.0.0'
-  - RSPEC_VERSION='~> 2.99.0'
-  - RSPEC_VERSION='~> 2.14.0'
+  - RSPEC_VERSION='~> 3.0'
 
 bundler_args: "--retry=3 --jobs=3"
 
@@ -23,8 +19,5 @@ script: "bundle exec rake ci --trace"
 
 matrix:
   allow_failures:
-    - rvm: 2.2
     - rvm: ruby-head
-    - rvm: jruby-9.0.0.0.pre1
-    - rvm: jruby-1.7.9-d19
-
+    - rvm: jruby-9.1.2.0
