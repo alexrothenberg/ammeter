@@ -27,7 +27,11 @@ if rspec_major_version == '2' || RUBY_VERSION.to_f < 1.9
   gem 'haml-rails', '~> 0.4'
   gem 'execjs', '~> 2.0.0'
 elsif rspec_major_version == '3'
-  gem 'rails', '>= 4.0'
+  if RUBY_VERSION < '2.2.2'
+    gem 'rails', '< 5.0' # rails 5 is ruby >= 2.2.2
+  else
+    gem 'rails', '>= 4.0'
+  end
   gem 'uglifier', '>= 1.3'
   gem 'rake', '>= 0.10'
   gem 'coffee-rails', '>= 4.0'
@@ -39,6 +43,7 @@ else
 end
 
 gem "i18n", '< 0.7.0' if RUBY_VERSION < '1.9.3'
+gem "rack", '<= 1.6.4' if RUBY_VERSION < '2.2.2'
 
 # Specify your gem's dependencies in rspec-rails-generator-specs.gemspec
 gemspec
