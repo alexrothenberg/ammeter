@@ -41,7 +41,7 @@ Feature: generator spec
         describe 'app/models/post.rb' do
           subject { file('app/models/post.rb') }
           it { expect(subject).to exist }
-          it { expect(subject).to contain 'class Post < ActiveRecord::Base' }
+          it { expect(subject).to contain 'class Post < ' }
         end
       end
       """

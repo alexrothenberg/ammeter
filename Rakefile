@@ -27,7 +27,7 @@ def create_gem(gem_name)
   template_folder = "features/templates/#{gem_name}"
 
   Dir.chdir("./tmp") do
-    sh "bundle gem #{gem_name}"
+    sh "yes | bundle gem -t rspec #{gem_name}"
   end
   sh "cp '#{template_folder}/Gemfile' tmp/#{gem_name}"
   sh "cp '#{template_folder}/#{gem_name}.gemspec' tmp/#{gem_name}"
