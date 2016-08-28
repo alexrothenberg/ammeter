@@ -9,7 +9,8 @@ RSpec::configure do |c|
 
   generator_path_regex = c.escaped_path(%w[spec generators])
   if RSpec::Core::Version::STRING >= '3'
-    c.include Ammeter::RSpec::Rails::GeneratorExampleHelpers
+    c.include Ammeter::RSpec::Rails::GeneratorExampleHelpers,
+      :type          => :generator
     c.include Ammeter::RSpec::Rails::GeneratorExampleGroup,
       :type          => :generator,
       :file_path     => lambda { |file_path, metadata|
@@ -17,7 +18,7 @@ RSpec::configure do |c|
       }
 
   else #rspec2
-    c.include Ammeter::RSpec::Rails::GeneratorExampleHelpers
+    c.include Ammeter::RSpec::Rails::GeneratorExampleHelpers, :type => :generator
     c.include Ammeter::RSpec::Rails::GeneratorExampleGroup, :type => :generator, :example_group => {
       :file_path => generator_path_regex
     }

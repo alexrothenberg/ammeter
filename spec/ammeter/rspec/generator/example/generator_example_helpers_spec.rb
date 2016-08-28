@@ -2,7 +2,8 @@ require "spec_helper"
 
 module Ammeter::RSpec::Rails
   describe GeneratorExampleHelpers do
-    let(:generator) { Generator.new }
+    include GeneratorExampleHelpers
+    let(:generator) { MockGenerator.new }
 
     it "mocks return value of ask to response" do
       set_shell_prompt_responses(generator, { :ask => "response" })
