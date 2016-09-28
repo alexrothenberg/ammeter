@@ -13,6 +13,24 @@ and we think you may find it useful too.
 An [ammeter](http://en.wikipedia.org/wiki/Ammeter) is used to measure electrical current and
 electricity can be produced by a generator.
 
+# Installation
+Add this line to your Gemfile (or gemspec):
+
+```ruby
+gem 'ammeter'
+```
+
+And then execute:
+```bash
+$ bundle
+```
+
+Add:
+```ruby
+require 'ammeter/init'
+```
+To your `spec/spec_helper.rb`.
+
 # Example
 
 ```ruby
