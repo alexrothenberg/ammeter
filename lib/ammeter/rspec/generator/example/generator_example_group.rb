@@ -2,6 +2,7 @@ require 'rails/generators'
 require 'active_support/core_ext'
 require 'tmpdir'
 require 'fileutils'
+require 'ammeter/output_capturer'
 
 module Ammeter
   module RSpec
