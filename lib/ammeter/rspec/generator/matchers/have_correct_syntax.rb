@@ -30,7 +30,11 @@ RSpec::Matchers.define :have_correct_syntax do
     require 'ostruct'
 
     begin
-      view = ActionView::Template::Handlers::ERB.call(OpenStruct.new(:source => code))
+      if Rails::VERSION::STRING < "6.0"
+        view = ActionView::Template::Handlers::ERB.call(OpenStruct.new(:source => code))
+      else
+        view = ActionView::Template::Handlers::ERB.call(OpenStruct.new, code)
+      end
       eval('__crash_me__; ' + view)
     rescue SyntaxError
       false
