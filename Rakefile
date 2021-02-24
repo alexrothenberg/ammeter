@@ -42,13 +42,12 @@ end
 namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app => :ensure_bundler_11 do |t|
-    sh "bundle exec rails new ./tmp/example_app -m 'features/templates/generate_example_app.rb' --skip-test-unit"
+    sh "bundle exec rails new ./tmp/example_app -m 'features/templates/generate_example_app.rb' --skip-test-unit --skip-bootsnap --skip-spring --skip-webpack-install"
     sh "cp 'features/templates/rspec.rake' ./tmp/example_app/lib/tasks"
     Dir.chdir("./tmp/example_app/") do
       Bundler.unbundled_system 'bundle install'
       Bundler.unbundled_system 'rake db:migrate'
       Bundler.unbundled_system 'rails g rspec:install'
-      Bundler.unbundled_system 'spring stop'
     end
   end
 

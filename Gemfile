@@ -1,7 +1,7 @@
-source "http://rubygems.org"
+source 'https://rubygems.org'
 
-rspec_version = ENV['RSPEC_VERSION']
-rspec_major_version = (rspec_version && rspec_version != 'master') ? rspec_version.scan(/\d+/).first : '3'
+rspec_version = ENV['RSPEC_VERSION'] || '~> 4.0'
+rails_version = ENV['RAILS_VERSION'] || '>= 5.1.0'
 
 if rspec_version == 'master'
   gem "rspec-rails", :git => 'git://github.com/rspec/rspec-rails.git'
@@ -13,38 +13,16 @@ if rspec_version == 'master'
   gem "rspec-support", :git => 'git://github.com/rspec/rspec-support.git'
 else
   gem 'rspec-rails', rspec_version
-  gem 'rspec',       rspec_version
 end
 
-if rspec_major_version == '2' || RUBY_VERSION.to_f < 1.9
-  # rspec 2.x does not support Rails 4.1+ nor does Ruby 1.8.7
-  gem 'rails', '~> 3.2'
-  gem 'uglifier', '~> 1.2.4'
-  gem 'rake', '~> 0.9.2.2'
-  gem 'coffee-rails', '~> 3.2'
-  gem 'sass-rails', '~> 3.2'
-  gem 'jquery-rails', '~> 2.0'
-  gem 'haml-rails', '~> 0.4'
-  gem 'execjs', '~> 2.0.0'
-elsif rspec_major_version == '3'
-  if RUBY_VERSION < '2.2.2'
-    gem 'rails', '< 5.0' # rails 5 is ruby >= 2.2.2
-  else
-    gem 'rails', '>= 4.0'
-  end
-  gem 'uglifier', '>= 1.3'
-  gem 'rake', '>= 0.10'
-  gem 'coffee-rails', '>= 4.0'
-  gem 'sass-rails', '>= 4.0'
-  gem 'jquery-rails', '>= 3.0'
-  gem 'haml-rails', '>= 0.5'
-else
-  raise "rspec version #{rspec_version} is not supported"
-end
+gem 'rails', rails_version
+gem 'uglifier'
+gem 'rake'
+gem 'coffee-rails'
+gem 'sass-rails'
+gem 'jquery-rails'
+gem 'haml-rails'
 
-gem "i18n", '< 0.7.0' if RUBY_VERSION < '1.9.3'
-gem "rack", '<= 1.6.4' if RUBY_VERSION < '2.2.2'
-
-# Specify your gem's dependencies in rspec-rails-generator-specs.gemspec
+# Specify your gem's dependencies in ammeter.gemspec
 gemspec
 

@@ -1,0 +1,70 @@
+name: Ammeter CI
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '*'
+jobs:
+  test:
+    name: 'Ruby: ${{ matrix.ruby }}, Rspec: ${{matrix.env.RSPEC_VERSION}}, Rails: ${{ matrix.env.RAILS_VERSION }}'
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+       include:
+         - ruby: 3.0
+           env:
+             RSPEC_VERSION: 'master'
+             RAILS_VERSION: '~> 6.1.0'
+         - ruby: 3.0
+           env:
+             RSPEC_VERSION: '~> 4.0'
+             RAILS_VERSION: '~> 6.1.0'
+         - ruby: 3.0
+           env:
+             RSPEC_VERSION: '~> 4.0'
+             RAILS_VERSION: '~> 6.0.0'
+         - ruby: 3.0
+           env:
+             RSPEC_VERSION: '~> 3.9'
+             RAILS_VERSION: '~> 6.0.0'
+         - ruby: 2.5
+           env:
+             RSPEC_VERSION: 'master'
+             RAILS_VERSION: '~> 6.1.0'
+         - ruby: 2.5
+           env:
+             RSPEC_VERSION: '~> 4.0'
+             RAILS_VERSION: '~> 6.1.0'
+         - ruby: 2.5
+           env:
+             RSPEC_VERSION: '~> 4.0'
+             RAILS_VERSION: '~> 6.0.0'
+         - ruby: 2.5
+           env:
+             RSPEC_VERSION: '~> 4.0'
+             RAILS_VERSION: '~> 5.2.0'
+         - ruby: 2.5
+           env:
+             RSPEC_VERSION: '~> 3.9'
+             RAILS_VERSION: '~> 6.0.0'
+         - ruby: 2.5
+           env:
+             RSPEC_VERSION: '~> 3.9'
+             RAILS_VERSION: '~> 5.2.0'
+         - ruby: ruby-head
+           env:
+             RSPEC_VERSION: 'master'
+             RAILS_VERSION: '~> 6.1.0'
+    env: ${{ matrix.env }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - run: bundle install
+      - run: bundle exec rake ci
+        continue-on-error: ${{ matrix.allow_failure || false }}

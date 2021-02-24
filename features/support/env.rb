@@ -42,7 +42,7 @@ def copy_to_aruba_from(gem_or_app_name)
   if rspec_major_version == '2'
     # rspec 2.x does not create rails_helper.rb so we create a symlink to avoid cluttering tests
     write_symlink("tmp/#{gem_or_app_name}/spec/spec_helper.rb", gem_or_app_name, 'rails_helper.rb')
-  elsif rspec_major_version == '3'
+  elsif rspec_major_version >= '3'
     write_symlink("tmp/#{gem_or_app_name}/spec/rails_helper.rb", gem_or_app_name)
   end
 end

@@ -1,4 +1,4 @@
-# Ammeter [![Build Status](https://secure.travis-ci.org/alexrothenberg/ammeter.png)](http://travis-ci.org/alexrothenberg/ammeter) [![Code Climate](https://codeclimate.com/github/alexrothenberg/ammeter.png)](https://codeclimate.com/github/alexrothenberg/ammeter) [![Gem Version](https://badge.fury.io/rb/ammeter.png)](http://badge.fury.io/rb/ammeter)
+# Ammeter [![Ammeter CI](https://github.com/alexrothenberg/ammeter/actions/workflows/ci.yml/badge.svg)](https://github.com/alexrothenberg/ammeter/actions/workflows/ci.yml) [![Code Climate](https://codeclimate.com/github/alexrothenberg/ammeter.png)](https://codeclimate.com/github/alexrothenberg/ammeter) [![Gem Version](https://badge.fury.io/rb/ammeter.png)](http://badge.fury.io/rb/ammeter)
 
 
 A gem that makes it easy to write specs for your Rails 3 Generators.
