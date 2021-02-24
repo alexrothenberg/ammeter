@@ -11,7 +11,6 @@ if rspec_version == 'master'
   gem "rspec-support", :git => 'git://github.com/rspec/rspec-support.git'
 else
   gem 'rspec-rails', rspec_version
-  gem 'rspec',       rspec_version
 end
 
 gem "i18n", '< 0.7.0' if RUBY_VERSION < '1.9.3'
