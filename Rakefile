@@ -35,7 +35,7 @@ def create_gem(gem_name)
   sh "mkdir -p tmp/#{gem_name}/spec"
   sh "cp '#{template_folder}/spec/spec_helper.rb' tmp/#{gem_name}/spec"
   Dir.chdir("./tmp/#{gem_name}") do
-    Bundler.clean_system 'bundle install'
+    Bundler.unbundled_system 'bundle install'
   end
 end
 
@@ -45,10 +45,10 @@ namespace :generate do
     sh "bundle exec rails new ./tmp/example_app -m 'features/templates/generate_example_app.rb' --skip-test-unit"
     sh "cp 'features/templates/rspec.rake' ./tmp/example_app/lib/tasks"
     Dir.chdir("./tmp/example_app/") do
-      Bundler.clean_system 'bundle install'
-      Bundler.clean_system 'rake db:migrate'
-      Bundler.clean_system 'rails g rspec:install'
-      Bundler.clean_system 'spring stop'
+      Bundler.unbundled_system 'bundle install'
+      Bundler.unbundled_system 'rake db:migrate'
+      Bundler.unbundled_system 'rails g rspec:install'
+      Bundler.unbundled_system 'spring stop'
     end
   end
 

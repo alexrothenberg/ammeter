@@ -12,7 +12,8 @@ RSpec::configure do |c|
     c.include Ammeter::RSpec::Rails::GeneratorExampleHelpers,
       :type          => :generator
     c.include Ammeter::RSpec::Rails::GeneratorExampleGroup,
-      :type          => :generator,
+      :type          => :generator
+    c.include Ammeter::RSpec::Rails::GeneratorExampleGroup,
       :file_path     => lambda { |file_path, metadata|
         metadata[:type].nil? && generator_path_regex =~ file_path
       }

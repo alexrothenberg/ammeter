@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'activesupport', '>= 3.0'
   s.add_runtime_dependency 'rspec-rails',   '>= 2.2'
 
+  s.add_runtime_dependency 'bootsnap'
+  
   s.add_development_dependency 'rspec',        '>= 2.2'
   s.add_development_dependency 'rails',        '>= 3.1'
   s.add_development_dependency 'uglifier',     '>= 1.2.4'
