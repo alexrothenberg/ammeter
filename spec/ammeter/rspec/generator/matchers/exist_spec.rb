@@ -11,9 +11,11 @@ describe "exist" do
     expect('/some/file/path').to_not exist
   end
 
-  it 'maintains default RSpec behavior' do
+  it 'maintains default RSpec behavior', :aggregate_failures do
     path = Pathname.new('/some/file/path')
     allow(path).to receive(:exist?).and_return(true)
     expect(path).to exist
+    allow(path).to receive(:exist?).and_return(false)
+    expect(path).not_to exist
   end
 end
