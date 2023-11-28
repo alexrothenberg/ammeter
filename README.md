@@ -71,8 +71,6 @@ describe Rspec::Generators::ModelGenerator, :type => :generator do
     describe 'the spec' do
       # file - gives you the absolute path where the generator will create the file
       subject { file('spec/models/posts_spec.rb') }
-      # is_expected_to exist - verifies the file exists
-      it { is_expected_to exist }
 
       # is_expected_to contain - verifies the file's contents
       it { is_expected_to contain /require 'spec_helper'/ }
@@ -82,7 +80,7 @@ describe Rspec::Generators::ModelGenerator, :type => :generator do
       subject { migration_file('db/migrate/create_posts.rb') }
 
       # is_expected_to be_a_migration - verifies the file exists with a migration timestamp as part of the filename
-      it { is_expected_to exist }
+      it { is_expected_to be_a_migration }
       it { is_expected_to contain /create_table/ }
     end
   end
@@ -91,7 +89,6 @@ end
 
 # Available matchers
 
-- `exist` - verifies the file exists
 - `contain` - verifies the file's contents
 - `be_a_migration` - verifies the file exists with a migration timestamp as part of the filename
 - `have_method` - verifies the file (or a class withing it) implements a method
