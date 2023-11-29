@@ -1,5 +1,11 @@
 ## Ammeter release history
 
+### 1.1.6 / 2023-11-29
+
+[full changelog](https://github.com/alexrothenberg/ammeter/compare/v1.1.5...v1.1.6)
+
+* Deprecate the custom exist matcher (#68)
+
 ### 1.0.0 / 2014-04-07
 
 [full changelog](https://github.com/alexrothenberg/ammeter/compare/v0.2.9...v1.0.0)
