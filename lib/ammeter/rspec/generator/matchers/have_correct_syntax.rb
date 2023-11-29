@@ -47,11 +47,17 @@ RSpec::Matchers.define :have_correct_syntax do
     require 'haml'
 
     begin
-      Haml::Engine.new(code)
+      Haml::Parser.new({}).call(code)
     rescue Haml::SyntaxError
       false
     rescue NameError
-      true
+      begin
+        Haml::Engine.new(code)
+      rescue Haml::SyntaxError
+        false
+      rescue NameError
+        true
+      end
     end
   end
 
