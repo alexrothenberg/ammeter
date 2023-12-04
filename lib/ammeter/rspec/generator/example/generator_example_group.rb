@@ -74,7 +74,7 @@ module Ammeter
         end
 
         def file relative
-          File.expand_path(relative, destination_root)
+          Pathname.new(File.expand_path(relative, destination_root))
         end
         def migration_file relative
           file_path = file(relative)
