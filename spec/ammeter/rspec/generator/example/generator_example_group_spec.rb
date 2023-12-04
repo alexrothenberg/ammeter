@@ -43,7 +43,7 @@ module Ammeter::RSpec::Rails
           FileUtils.mkdir path_to_gem_root_tmp
         end
         it 'should use destination to find relative root file' do
-          expect(group.file('app/model/post.rb')).to eq "#{path_to_gem_root_tmp}/app/model/post.rb"
+          expect(group.file('app/model/post.rb').to_path).to eq "#{path_to_gem_root_tmp}/app/model/post.rb"
         end
 
         describe 'migrations' do
